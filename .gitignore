@@ -130,6 +130,7 @@ dmypy.json
 
 # MacOS
 .DS_store
-Icon[]
 api_key.py
 password.py
+./00_config/password.py
+Icon[]
