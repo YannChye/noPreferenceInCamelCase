@@ -38,9 +38,21 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
-    <!-- D3 JavaScript -->
+    <!-- D3 JavaScript   -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
-
+    <!-- <script>var data = d3.json("/api", function(error, data) {
+    
+        d3.select("body")
+            .selectAll("p")
+            .data(data)
+            .enter()
+            .append("p")
+            .text(function(d) {
+                return c.country;
+            });
+    
+    });
+    </script>   -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- our JavaScript -->
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
