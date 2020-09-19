@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+#bar {
+  height: 400px;
+  width: 400px;
+  }
+
 /*!
  * Bootswatch v4.0.0
  * Homepage: https://bootswatch.com

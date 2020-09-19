@@ -1,34 +1,47 @@
 //const url = "/api/population";
-//var year = 2017;
+var getYear = 2017;
 //var age = 0;
 
-var populationdata = [];
-var country = "China"
-var year = 2019
+var populationdata = []
+var getCountry = "Brazil"
+var barCountry = []
+var barData = []
 
-function getPop() {
+function getBar() {
     d3.json(url).then(function (data) {
         data.forEach(function (data) {
-           // if (data.year == year && data.country == country) {
-             //   populationdata.push(data)
-                console.log(data.year);
-                console.log(data.country);
+            if (data.year == getYear) {
+                populationdata.push(data);
             }
         })
+        // get index value of country
+        for (let i = 0; i < populationdata.length; i++) {
+            if (populationdata[i].country == getCountry) {
+                barCountry.push(populationdata[i + 2].country);
+                barCountry.push(populationdata[i + 1].country);
+                barCountry.push(populationdata[i].country);
+                barCountry.push(populationdata[i - 1].country);
+                barCountry.push(populationdata[i - 2].country);
+                barData.push(populationdata[i + 2].Population);
+                barData.push(populationdata[i + 1].Population);
+                barData.push(populationdata[i].Population);
+                barData.push(populationdata[i - 1].Population);
+                barData.push(populationdata[i - 2].Population);
+            };
+        };
+        // create array for bar chart
+        var trace1 = [{
+            type: "bar",
+            x: barData,
+            y: barCountry,
+            orientation: "h",
+            marker: {
+                color: "006666"
+              },
+            text: barCountry
+        }];
+        Plotly.newPlot("bar", trace1);
     })
 }
 
-
-
-// create array for bar chart
-// var trace1 = [{
-//     type: "bar",
-//     x: population,
-//     y: country,
-//     orientation: "h",
-//     text: country
-// }];
-// Plotly.newPlot("bar", trace1);
-
-
-// getPop()
+getBar()
