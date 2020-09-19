@@ -68,5 +68,12 @@ Contributions are what make the open source community such an amazing place to b
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
+Design adapted from _The Health in Retirement Index_. Retrieved from: [https://hi.knoema.com/wcoqzud/the-health-in-retirement-index](https://hi.knoema.com/wcoqzud/the-health-in-retirement-index)
+
+Data sourced from :
+United Nations Department of Economic and Social Affairs Population Dynamics _World Population Prospects 2019 : Total Population - Both Sexes (XLSX, 2.4 MB)_.  Retrieved from: [https://population.un.org/wpp/Download/Standard/Population/] (https://population.un.org/wpp/Download/Standard/Population/)
+United Nations Department of Economic and Social Affairs Population Dynamics _World Population Prospects 2019 : Locations (XLSX, 131 KB)_.  Retrieved from: [https://population.un.org/wpp/Download/Metadata/Documentation/] (https://population.un.org/wpp/Download/Metadata/Documentation/)
+United Nations Department of Economic and Social Affairs Population Dynamics _World Population Prospects 2019 : 	
+Annual Demographic Indicators (XLSX, 33.41 MB)_.  Retrieved from: [https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/] (https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/)
 
 
