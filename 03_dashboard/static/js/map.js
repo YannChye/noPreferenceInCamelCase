@@ -1,8 +1,10 @@
+
 // initial parameter
 var url="/api/population";
 var year=2019;
 
 const coord="https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+
 
 var myMap = L.map("map", {
   center: [39.5501, -105.7821],
@@ -15,6 +17,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?acce
   id: "light-v10",
   accessToken: API_KEY
 }).addTo(myMap);
+
 
 
 // get data by year
@@ -94,3 +97,4 @@ function buildMap(mapdata,maxVal) {
   });
 }
 getData()
+
