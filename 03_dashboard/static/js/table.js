@@ -9,9 +9,10 @@ var year = 2019
 function getPop() {
     d3.json(url).then(function (data) {
         data.forEach(function (data) {
-            if (data.year == year && data.country == country) {
-                populationdata.push(data)
-                console.log(populationdata);
+           // if (data.year == year && data.country == country) {
+             //   populationdata.push(data)
+                console.log(data.year);
+                console.log(data.country);
             }
         })
     })
