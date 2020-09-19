@@ -57,7 +57,7 @@ def subregion():
         ON c.sdg_region_id=sdg.id\
         GROUP BY c.country, c.iso3_code, g.name,\
 	    sdg.name, p.year\
-            LIMIT 5\
+        LIMIT 5\
 ")
    
     allData=[]
@@ -91,6 +91,7 @@ def population():
         ON c.sdg_region_id=sdg.id\
         GROUP BY c.country, c.iso3_code, g.name,\
 	    sdg.name, p.year\
+        ORDER BY Population DESC\
         LIMIT 5\
 ")
    
@@ -125,6 +126,7 @@ def mortality():
         ON c.sdg_region_id = sdg.id\
         GROUP BY c.country, c.iso3_code, g.name,\
 	    sdg.name, d.crude_death, d.year\
+        ORDER BY d.crude_death DESC\
         LIMIT 5\
 ")
    
@@ -159,6 +161,7 @@ def lifetime():
         ON c.sdg_region_id = sdg.id\
         GROUP BY c.country, c.iso3_code, g.name,\
 	    sdg.name, d.life_exp, d.year\
+        ORDER BY d.life_exp DESC\
         LIMIT 5\
 ")
    
@@ -194,6 +197,7 @@ def popgrowth():
         ON c.sdg_region_id = sdg.id\
         GROUP BY c.country, c.iso3_code, g.name,\
 	    sdg.name, d.pop_growth_percent, d.year\
+        ORDER BY d.pop_growth_percent DESC\
         LIMIT 5\
 ")
    
@@ -228,6 +232,7 @@ def birthrate():
         ON c.sdg_region_id = sdg.id\
         GROUP BY c.country, c.iso3_code, g.name,\
 	    sdg.name, d.crude_birth, d.year\
+        ORDER BY d.crude_birth DESC\
         LIMIT 5\
 ")
    
