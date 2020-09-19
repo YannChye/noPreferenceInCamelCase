@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Character encoding Unicode -->
+    <meta charset="UTF-8">
+
+    <!-- Set page width to follow screen-width of device and initial zoom when page first loaded -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Vis Project</title>
+    <html lang="en-us">
+
+    </html>
+
+    <!-- Bring in bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Left at default -->
+        <div class="container">
+            <!-- Within navbar to remove horizontal padding at breakpoints below specified -->
+            <a class="navbar-brand" href="index.html">70 Years of Population Growth</a>
+            <!-- Create hamburger -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!--tells bootstrap what to put in drop down menu -->
+                <ul class="navbar-nav ml-auto">
+                    <!--puts menu items to right of navbar-brand -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardropdown" data-toggle="dropdown">
+                            Plot
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="">Birth Rate</a>
+                            <a class="dropdown-item" href="">Death Rate</a>
+                            <a class="dropdown-item" href="">Age</a>
+                            <a class="dropdown-item" href="">Population</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">Home Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="data.html">Why We Did It</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pt-3 my-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="header">Our Technologies</h2>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <img src="..//images/OurTech.png" class="img-fluid" usemap="#ourtech">
+                <map name="ourtech">
+                    <area shape="rect" coords="116,105,490,255" alt="Flask" onclick="myFunction()">
+                    <!-- <area shape="rect" coords="116,105,490,255" alt="Flask" href="https://flask.palletsprojects.com/en/1.1.x/"> -->
+
+                  </map>
+            </div>
+         </div>
+
+         <script>
+            function myFunction() {
+              alert("Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.");
+            }
+            </script>
+         
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+</body>
+
+</html>

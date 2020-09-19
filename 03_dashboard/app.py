@@ -28,12 +28,11 @@ from flask_sqlalchemy import SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 
 # Remove tracking modifications
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silence the deprecation warning
 
 #engine=create_engine(DATABASE_URL)
 
 db=SQLAlchemy(app)
-Subregion,SDG_region,Geography,UNdevgrp,WBincomegrp,Country,Population,Demographic=create_classes(db)
 
 # create route that renders index.html template
 @app.route("/")
@@ -41,31 +40,14 @@ def home():
     return render_template("index.html")
 
 
-# Query the database and send the jsonified results
-# @app.route("/send", methods=["GET", "POST"])
-# def send():
-#     if request.method == "POST":
-#         name = request.form["petName"]
-#         lat = request.form["petLat"]
-#         lon = request.form["petLon"]
-
-#         pet = Pet(name=name, lat=lat, lon=lon)
-#         db.session.add(pet)
-#         db.session.commit()
-#         return redirect("/", code=302)
-
-#     return render_template("form.html")
-
-
-@app.route("/api/<year>")
+@app.route("/api")
 def subregion():
     engine=create_engine(DATABASE_URL)
     conn=engine.connect()
     with engine.begin() as conn:
-        response=conn.execute("SELECT c.country,c.iso3_code,g.name AS geography,\
-	    sdg.name AS sdg,s.name AS subregion,u.name AS undev,\
-	    w.name AS wbincome,p.year,p.age_start,p.population_male_thousands,\
-	    p.population_female_thousands,p.population_total_thousands\
+        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
+	    sdg.name AS sdg, p.year,\
+        SUM(p.population_total_thousands) AS Population\
         FROM population AS p\
         JOIN country AS c\
         ON p.country_id=c.id\
@@ -73,13 +55,11 @@ def subregion():
         ON c.geography_id=g.id\
         JOIN sdg_region AS sdg\
         ON c.sdg_region_id=sdg.id\
-        JOIN subregion AS s\
-        ON c.subregion_id=s.id\
-        JOIN un_developmentgroup AS u\
-        on c.un_developmentgroup_id=u.id\
-        JOIN worldbank_incomegroup AS w\
-        on c.worldbank_incomegroup_id=w.id")
-    
+        GROUP BY c.country, c.iso3_code, g.name,\
+	    sdg.name, p.year\
+            LIMIT 5\
+")
+   
     allData=[]
     for r in response:
         data={
@@ -87,45 +67,184 @@ def subregion():
             "iso3_code":r[1],
             "geography":r[2],
             "sdg":r[3],
-            "subregion":r[4],
-            "un_developmentgroup":r[5],
-            "worldbank_incomegroup":r[6],
-            "year":r[7],
-            "age":r[8],
-            "population_male_thousands":float(r[9]),
-            "population_female_thousands":float(r[10]),
-            "population_total_thousands":float(r[11]),
+            "year":r[4],
+            "Population":float(r[5]),
         }
         allData.append(data)
 
     return jsonify(allData)
 
-@app.route("/api/sdg")
-def sdg():
-    results = db.session.query(SDG_region.id, SDG_region.name).all()
+@app.route("/api/population")
+def population():
+    engine=create_engine(DATABASE_URL)
+    conn=engine.connect()
+    with engine.begin() as conn:
+        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
+	    sdg.name AS sdg, p.year,\
+        SUM(p.population_total_thousands) AS Population\
+        FROM population AS p\
+        JOIN country AS c\
+        ON p.country_id=c.id\
+        JOIN geography AS g\
+        ON c.geography_id=g.id\
+        JOIN sdg_region AS sdg\
+        ON c.sdg_region_id=sdg.id\
+        GROUP BY c.country, c.iso3_code, g.name,\
+	    sdg.name, p.year\
+        LIMIT 5\
+")
+   
+    allData=[]
+    for r in response:
+        data={
+            "country":r[0],
+            "iso3_code":r[1],
+            "geography":r[2],
+            "sdg":r[3],
+            "year":r[4],
+            "Population":float(r[5]),
+        }
+        allData.append(data)
 
-    #hover_text = [result[0] for result in results]
-    id = [result[0] for result in results]
-    name = [result[1] for result in results]
+    return jsonify(allData)
 
-    sdgregion_data = [{"id": id,"name": name}]
-    # pet_data = [{
-    #    "type": "scattergeo",
-    #    "locationmode": "USA-states",
-    #     "lat": lat,
-    #     "lon": lon,
-    #     "text": hover_text,
-    #     "hoverinfo": "text",
-    #     "marker": {
-    #         "size": 50,
-    #         "line": {
-    #             "color": "rgb(8,8,8)",
-    #             "width": 1
-    #         },
-    #     }
-    # }]
 
-    return jsonify(sdgregion_data)
+@app.route("/api/mortality")
+def mortality():
+    engine=create_engine(DATABASE_URL)
+    conn=engine.connect()
+    with engine.begin() as conn:
+        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
+	    sdg.name AS sdg, d.crude_death as deaths, d.year\
+        FROM demographic AS d\
+        JOIN country AS c\
+        ON d.country_id = d.id\
+        JOIN geography AS g\
+        ON c.geography_id = g.id\
+        JOIN sdg_region AS sdg\
+        ON c.sdg_region_id = sdg.id\
+        GROUP BY c.country, c.iso3_code, g.name,\
+	    sdg.name, d.crude_death, d.year\
+        LIMIT 5\
+")
+   
+    allData=[]
+    for r in response:
+        data={
+            "country":r[0],
+            "iso3_code":r[1],
+            "geography":r[2],
+            "sdg":r[3],
+            "deaths":float(r[4]),
+            "year":r[5],
+
+        }
+        allData.append(data)
+
+    return jsonify(allData)
+
+@app.route("/api/lifetime")
+def lifetime():
+    engine=create_engine(DATABASE_URL)
+    conn=engine.connect()
+    with engine.begin() as conn:
+        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
+	    sdg.name AS sdg, d.life_exp as lifetime, d.year\
+        FROM demographic AS d\
+        JOIN country AS c\
+        ON d.country_id = d.id\
+        JOIN geography AS g\
+        ON c.geography_id = g.id\
+        JOIN sdg_region AS sdg\
+        ON c.sdg_region_id = sdg.id\
+        GROUP BY c.country, c.iso3_code, g.name,\
+	    sdg.name, d.life_exp, d.year\
+        LIMIT 5\
+")
+   
+    allData=[]
+    for r in response:
+        data={
+            "country":r[0],
+            "iso3_code":r[1],
+            "geography":r[2],
+            "sdg":r[3],
+            "lifetime":float(r[4]),
+            "year":r[5],
+
+        }
+        allData.append(data)
+
+    return jsonify(allData)
+
+
+@app.route("/api/popgrowth")
+def popgrowth():
+    engine=create_engine(DATABASE_URL)
+    conn=engine.connect()
+    with engine.begin() as conn:
+        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
+	    sdg.name AS sdg, d.pop_growth_percent as popgrowth, d.year\
+        FROM demographic AS d\
+        JOIN country AS c\
+        ON d.country_id = d.id\
+        JOIN geography AS g\
+        ON c.geography_id = g.id\
+        JOIN sdg_region AS sdg\
+        ON c.sdg_region_id = sdg.id\
+        GROUP BY c.country, c.iso3_code, g.name,\
+	    sdg.name, d.pop_growth_percent, d.year\
+        LIMIT 5\
+")
+   
+    allData=[]
+    for r in response:
+        data={
+            "country":r[0],
+            "iso3_code":r[1],
+            "geography":r[2],
+            "sdg":r[3],
+            "popgrowth":float(r[4]),
+            "year":r[5],
+
+        }
+        allData.append(data)
+
+    return jsonify(allData)
+
+@app.route("/api/birthrate")
+def birthrate():
+    engine=create_engine(DATABASE_URL)
+    conn=engine.connect()
+    with engine.begin() as conn:
+        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
+	    sdg.name AS sdg, d.crude_birth as birthrate, d.year\
+        FROM demographic AS d\
+        JOIN country AS c\
+        ON d.country_id = d.id\
+        JOIN geography AS g\
+        ON c.geography_id = g.id\
+        JOIN sdg_region AS sdg\
+        ON c.sdg_region_id = sdg.id\
+        GROUP BY c.country, c.iso3_code, g.name,\
+	    sdg.name, d.crude_birth, d.year\
+        LIMIT 5\
+")
+   
+    allData=[]
+    for r in response:
+        data={
+            "country":r[0],
+            "iso3_code":r[1],
+            "geography":r[2],
+            "sdg":r[3],
+            "birthrate":float(r[4]),
+            "year":r[5],
+
+        }
+        allData.append(data)
+
+    return jsonify(allData)
 
 if __name__ == "__main__":
     app.run()
