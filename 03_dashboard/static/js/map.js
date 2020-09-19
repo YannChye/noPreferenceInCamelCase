@@ -1,5 +1,5 @@
-const url="/api"
-const coord="https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+const url = "/api/population"
+const coord = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
 
 var myMap = L.map("map", {
   center: [39.5501, -105.7821],
@@ -13,34 +13,37 @@ L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?acce
   accessToken: API_KEY
 }).addTo(myMap);
 
-var year=2019;
-var age=0;
+var year = 2019;
+var age = 0;
 
-var populationdata=[];
+var populationdata = [];
 function getPop() {
-  d3.json(url).then(function(data) {
-    data.forEach(function(data) {
-      if (data.year==year && data.age==age) {
+  d3.json(url).then(function (data) {
+    data.forEach(function (data) {
+      if (data.year == year && data.age == age) {
         populationdata.push(data)
+        console.log(populationdata);
       }
     })
     buildMap(populationdata)
-    })
+      })
 }
 function buildMap(populationdata) {
-  d3.json(coord).then(function(data) {
-    var coordinates=data.features;
-    for (i=0;i<coordinates.length;i++) {
-      for (j=0;j<populationdata.length;j++) {
-        if (populationdata[j].iso3_code==coordinates[i].properties.ISO_A3) {
-          coordinates[i].properties.population=populationdata[j].population_total_thousands;
-        }}
-        var feature=coordinates[i];
+  d3.json(coord).then(function (data) {
+    var coordinates = data.features;
+    for (i = 0; i < coordinates.length; i++) {
+      for (j = 0; j < populationdata.length; j++) {
+        if (populationdata[j].iso3_code == coordinates[i].properties.ISO_A3) {
+          coordinates[i].properties.population = populationdata[j].population_total_thousands;
+        }
+      }
+      var feature = coordinates[i];
       //var iso=feature.properties.ISO_A3;
       //for (i=0;i<populationdata.length;i++) {
-        //if (populationdata[i].iso3_code==iso) {
-          //var number=Math.round(populationdata[i].population_total_thousands)}}
-        L.geoJSON(feature).bindPopup("<p>"+feature.properties.population+"</p>").addTo(myMap)}
+      //if (populationdata[i].iso3_code==iso) {
+      //var number=Math.round(populationdata[i].population_total_thousands)}}
+      L.geoJSON(feature).bindPopup("<p>" + feature.properties.population + "</p>").addTo(myMap)
+    }
     //   //for (j=0;j<populationdata.length;j++) {
     //     //if (coordinates[i].properties.ISO_A3==populationdata[j].iso3_code) {
     //       var array=[]
@@ -49,7 +52,7 @@ function buildMap(populationdata) {
     //       }
     //       L.polygon(array).bindPopup("<p>"+coordinates[i].properties.ISO_A3+"</p>").addTo(myMap)
     //     }
-      //}
+    //}
     //}
     // coordinates.forEach(function(data) {
     //   for (i=0;i<populationdata.length;i++) {
@@ -67,4 +70,6 @@ function buildMap(populationdata) {
     //geojson=L.choloropleth(data)
   });
 }
+
 getPop()
+
