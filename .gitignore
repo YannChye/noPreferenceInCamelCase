@@ -133,4 +133,6 @@ dmypy.json
 api_key.py
 password.py
 ./00_config/password.py
+config.js
+./03_dashboard/static/js/config.js
 Icon[]
