@@ -1,3 +1,5 @@
+ImageMap('img[usemap]')
+
 function changeImage(elmnt, value) {
     console.log(value);
     a = value;
