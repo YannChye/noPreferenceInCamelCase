@@ -92,7 +92,7 @@ def population():
         GROUP BY c.country, c.iso3_code, g.name,\
 	    sdg.name, p.year\
         ORDER BY Population DESC\
-        LIMIT 100000\
+        LIMIT 500\
 ")
    
     allData=[]
