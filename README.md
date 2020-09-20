@@ -20,7 +20,13 @@
 
 
 ### Built With
-
+* [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
+* [Html](https://developer.mozilla.org/en-US/docs/Web/HTML)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS#:~:text=Cascading%20Style%20Sheets%20%28CSS%29%20is%20a%20stylesheet%20language,on%20paper%2C%20in%20speech%2C%20or%20on%20other%20media.)
+* [Python](https://www.python.org/about/)
+* [Flask](https://flask-doc.readthedocs.io/en/latest/)
+* [SQLAlchemy](https://docs.sqlalchemy.org/en/13/)
+* [SweetAlert](https://sweetalert.js.org/guides/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -78,5 +84,7 @@ United Nations Department of Economic and Social Affairs Population Dynamics _Wo
 
 United Nations Department of Economic and Social Affairs Population Dynamics _World Population Prospects 2019 : 	
 Annual Demographic Indicators (XLSX, 33.41 MB)_.  Retrieved from: [https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/](https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/)
+
+
 
 

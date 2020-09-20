@@ -73,20 +73,30 @@
             <div class="col-md-12">
                 <img src="..//images/OurTech.png" class="img-fluid" usemap="#ourtech">
                 <map name="ourtech">
-                    <area shape="rect" coords="116,105,490,255" alt="Flask" onclick="myFunction()">
-                    <!-- <area shape="rect" coords="116,105,490,255" alt="Flask" href="https://flask.palletsprojects.com/en/1.1.x/"> -->
-
-                  </map>
+                    <area shape="rect" coords="95,94,406,206" alt="Flask" onclick="myFunction()">
+                    <area shape="rect" coords="518,52,648,86" alt="JSON" onclick="myFunction()">
+                    <area shape="rect" coords="523,203,659,237" alt="JSON2" onclick="myFunction()">
+                    <area shape="rect" coords="368,275,686,328" alt="SQLAlchemy" onclick="myFunction()">
+                    <area shape="rect" coords="751,92,1015,232" alt="Html" onclick="myFunction()">
+                    <area shape="poly" coords="444,114,690,102,712,124,690,148,444,136" alt="Arrow_1" onclick="myFunction()">
+                    <area shape="poly" coords="430,178,449,156,513,169,514,266,490,267,489,200,449,498" alt="Arrow_2" onclick="myFunction()">
+                    <area shape="poly" coords="554,344,577,364,565,420,544,420,532,366" alt="Arrow_3" onclick="myFunction()">
+                    <area shape="poly" coords="475,420,456,399,467,345,488,345,497,399" alt="Arrow_4" onclick="myFunction()">
+                    <area shape="poly" coords="342,307,321,329,258,319,258,220,280,220,280,297,321,288," alt="Arrow_5" onclick="myFunction()">
+                    <area shape="poly" coords="458,432,570,432,601,454,601,544,559,594,541,605,519,605,512,589,508,566,457,561,430,469,441,442" alt="Postgres" onclick="myFunction()">
+                    
+                </map>
             </div>
-         </div>
+        </div>
 
-         <script>
+        <script>
             function myFunction() {
-              alert("Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.");
+                // alert("Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.");
+                swal("Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.");
             }
-            </script>
-         
+        </script>
 
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
