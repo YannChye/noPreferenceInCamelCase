@@ -3,7 +3,7 @@ var getYear = 2017;
 //var age = 0;
 
 var populationdata = []
-var getCountry = "Brazil"
+var getCountry = "Mexico"
 var barCountry = []
 var barData = []
 
@@ -18,16 +18,28 @@ function getBar() {
         // get index value of country
         for (let i = 0; i < populationdata.length; i++) {
             if (populationdata[i].country == getCountry) {
-                barCountry.push(populationdata[i + 2].country);
-                barCountry.push(populationdata[i + 1].country);
-                barCountry.push(populationdata[i].country);
-                barCountry.push(populationdata[i - 1].country);
-                barCountry.push(populationdata[i - 2].country);
-                barData.push(populationdata[i + 2].Population);
-                barData.push(populationdata[i + 1].Population);
-                barData.push(populationdata[i].Population);
-                barData.push(populationdata[i - 1].Population);
-                barData.push(populationdata[i - 2].Population);
+                let tableRow = i;
+                if (i == 0) {
+                    tableRow = (i + 2)
+                } else if (i == 1) {
+                    tableRow = (i + 1)
+                } else if (i == populationdata.length - 2) {
+                    tableRow = (i - 1)
+                } else if (i == populationdata.length - 1) {
+                    tableRow = (i - 2)
+                } else {
+                    tableRow = i
+                }
+                barCountry.push(populationdata[tableRow + 2].country);
+                barCountry.push(populationdata[tableRow + 1].country);
+                barCountry.push(populationdata[tableRow].country);
+                barCountry.push(populationdata[tableRow - 1].country);
+                barCountry.push(populationdata[tableRow - 2].country);
+                barData.push(populationdata[tableRow + 2].Population * 1000);
+                barData.push(populationdata[tableRow + 1].Population * 1000);
+                barData.push(populationdata[tableRow].Population * 1000);
+                barData.push(populationdata[tableRow - 1].Population * 1000);
+                barData.push(populationdata[tableRow - 2].Population * 1000);
             };
         };
         console.log(barData);
@@ -39,8 +51,8 @@ function getBar() {
             orientation: "h",
             hoverinfo: barData,
             marker: {
-                color:["#006666","#006666","#339999","#006666","#006666"]
-              }
+                color: ["#006666", "#006666", "#339999", "#006666", "#006666"]
+            }
         }];
         Plotly.newPlot("bar", trace1);
     })
