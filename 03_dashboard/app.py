@@ -6,12 +6,9 @@ from password import username, password
 from flask import (
     Flask,
     render_template,
-    url_for,
-    jsonify,
-    request,
-    redirect)
+    jsonify)
 from sqlalchemy import create_engine
-from models import create_classes
+from sqlalchemy.sql import text
 
 #################################################
 # Flask Setup
@@ -24,28 +21,20 @@ app = Flask(__name__)
 
 DATABASE_URL='postgresql://'+username+':'+password+'@localhost/world_population'
 
-from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+# create and connect to engine
+engine=create_engine(DATABASE_URL)
+conn=engine.connect()
 
-# Remove tracking modifications
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silence the deprecation warning
-
-#engine=create_engine(DATABASE_URL)
-
-db=SQLAlchemy(app)
-
-# create route that renders index.html template
+# create route that renders landing page
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
-@app.route("/api")
-def subregion():
-    engine=create_engine(DATABASE_URL)
-    conn=engine.connect()
-    with engine.begin() as conn:
-        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
+# create routes for various APIs
+# population data
+@app.route("/api/population/<year>")
+def population(year):
+    s=text("SELECT c.country, c.iso3_code, g.name AS geography,\
 	    sdg.name AS sdg, p.year,\
         SUM(p.population_total_thousands) AS Population\
         FROM population AS p\
@@ -55,11 +44,13 @@ def subregion():
         ON c.geography_id=g.id\
         JOIN sdg_region AS sdg\
         ON c.sdg_region_id=sdg.id\
-        GROUP BY c.country, c.iso3_code, g.name,\
-	    sdg.name, p.year\
-        LIMIT 5\
-")
+        WHERE p.year=:y\
+        GROUP BY c.country, c.iso3_code, g.name,sdg.name,p.year\
+        ORDER BY Population DESC")
    
+    with engine.begin() as conn:
+        response=conn.execute(s,y=year)
+
     allData=[]
     for r in response:
         data={
@@ -68,66 +59,38 @@ def subregion():
             "geography":r[2],
             "sdg":r[3],
             "year":r[4],
-            "Population":float(r[5]),
+            "variable":float(r[5]),
         }
         allData.append(data)
-
     return jsonify(allData)
 
-@app.route("/api/population")
-def population():
-    engine=create_engine(DATABASE_URL)
-    conn=engine.connect()
-    with engine.begin() as conn:
-        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
-	    sdg.name AS sdg, p.year,\
-        SUM(p.population_total_thousands) AS Population\
-        FROM population AS p\
-        JOIN country AS c\
-        ON p.country_id=c.id\
-        JOIN geography AS g\
-        ON c.geography_id=g.id\
-        JOIN sdg_region AS sdg\
-        ON c.sdg_region_id=sdg.id\
-        GROUP BY c.country, c.iso3_code, g.name,\
-	    sdg.name, p.year\
-        ORDER BY Population DESC\
-")
-   
-    allData=[]
-    for r in response:
-        data={
-            "country":r[0],
-            "iso3_code":r[1],
-            "geography":r[2],
-            "sdg":r[3],
-            "year":r[4],
-            "Population":float(r[5]),
-        }
-        allData.append(data)
-
-    return jsonify(allData)
-
-
-@app.route("/api/mortality")
-def mortality():
-    engine=create_engine(DATABASE_URL)
-    conn=engine.connect()
-    with engine.begin() as conn:
-        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
-	    sdg.name AS sdg, d.crude_death as deaths, d.year\
+# various demographic data
+@app.route("/api/demographic/<variable>/<year>")
+def demographic(variable,year):
+    s=text("SELECT c.country, c.iso3_code, g.name AS geography,\
+	    sdg.name AS sdg, d.crude_death, d.life_exp, d.pop_growth_percent,\
+        d.crude_birth, d.year\
         FROM demographic AS d\
         JOIN country AS c\
-        ON d.country_id = d.id\
+        ON d.country_id = c.id\
         JOIN geography AS g\
         ON c.geography_id = g.id\
         JOIN sdg_region AS sdg\
         ON c.sdg_region_id = sdg.id\
-        GROUP BY c.country, c.iso3_code, g.name,\
-	    sdg.name, d.crude_death, d.year\
-        ORDER BY d.crude_death DESC\
-")
-   
+        WHERE d.year=:y")
+    
+    with engine.begin() as conn:
+        response=conn.execute(s,y=year)
+
+    if variable=="mortality":
+        num=4
+    elif variable=="lifetime":
+        num=5
+    elif variable=="popgrowth":
+        num=6
+    elif variable=="birthrate":
+        num=7
+    
     allData=[]
     for r in response:
         data={
@@ -135,112 +98,71 @@ def mortality():
             "iso3_code":r[1],
             "geography":r[2],
             "sdg":r[3],
-            "deaths":float(r[4]),
-            "year":r[5],
+            "year":r[8],
+            "variable":float(r[num])
+        }
+        allData.append(data)
+    newData=sorted(allData,key=lambda k: k['variable'],reverse=True) 
 
+    return jsonify(newData)
+
+# continent population data
+@app.route("/api/geography/population")
+def geographyPop():
+    with engine.begin() as conn:
+        response=conn.execute("SELECT g.name AS geography,p.year AS year,\
+            SUM(p.population_total_thousands) AS population\
+            FROM population AS p\
+            JOIN country AS c\
+            ON p.country_id=c.id\
+            JOIN geography AS g\
+            ON c.geography_id = g.id\
+            GROUP BY g.name, p.year\
+            ORDER BY p.year ASC")
+   
+    allData=[]
+    for r in response:
+        data={
+            "geography":r[0],
+            "year":r[1],
+            "variable":float(r[2])
         }
         allData.append(data)
 
     return jsonify(allData)
-
-@app.route("/api/lifetime")
-def lifetime():
-    engine=create_engine(DATABASE_URL)
-    conn=engine.connect()
+    
+# various continent demographic data
+@app.route("/api/geography/<variable>")
+def geographyDem(variable):
     with engine.begin() as conn:
-        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
-	    sdg.name AS sdg, d.life_exp as lifetime, d.year\
-        FROM demographic AS d\
-        JOIN country AS c\
-        ON d.country_id = d.id\
-        JOIN geography AS g\
-        ON c.geography_id = g.id\
-        JOIN sdg_region AS sdg\
-        ON c.sdg_region_id = sdg.id\
-        GROUP BY c.country, c.iso3_code, g.name,\
-	    sdg.name, d.life_exp, d.year\
-        ORDER BY d.life_exp DESC\
-")
+        response=conn.execute("SELECT g.name AS geography,d.year AS year,\
+            AVG(d.crude_death) AS mortality,\
+            AVG(d.life_exp) AS lifetime,\
+            AVG(d.pop_growth_percent) AS popgrowth,\
+            AVG(d.crude_birth) AS birthrate\
+            FROM demographic AS d\
+            JOIN country AS c\
+            ON d.country_id=c.id\
+            JOIN geography AS g\
+            ON c.geography_id = g.id\
+            GROUP BY g.name, d.year\
+            ORDER BY d.year ASC")
    
+    if variable=="mortality":
+        num=2
+    elif variable=="lifetime":
+        num=3
+    elif variable=="popgrowth":
+        num=4
+    elif variable=="birthrate":
+        num=5
+
     allData=[]
     for r in response:
         data={
-            "country":r[0],
-            "iso3_code":r[1],
-            "geography":r[2],
-            "sdg":r[3],
-            "lifetime":float(r[4]),
-            "year":r[5],
-
-        }
-        allData.append(data)
-
-    return jsonify(allData)
-
-
-@app.route("/api/popgrowth")
-def popgrowth():
-    engine=create_engine(DATABASE_URL)
-    conn=engine.connect()
-    with engine.begin() as conn:
-        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
-	    sdg.name AS sdg, d.pop_growth_percent as popgrowth, d.year\
-        FROM demographic AS d\
-        JOIN country AS c\
-        ON d.country_id = d.id\
-        JOIN geography AS g\
-        ON c.geography_id = g.id\
-        JOIN sdg_region AS sdg\
-        ON c.sdg_region_id = sdg.id\
-        GROUP BY c.country, c.iso3_code, g.name,\
-	    sdg.name, d.pop_growth_percent, d.year\
-        ORDER BY d.pop_growth_percent DESC\
-")
-   
-    allData=[]
-    for r in response:
-        data={
-            "country":r[0],
-            "iso3_code":r[1],
-            "geography":r[2],
-            "sdg":r[3],
-            "popgrowth":float(r[4]),
-            "year":r[5],
-
-        }
-        allData.append(data)
-
-    return jsonify(allData)
-
-@app.route("/api/birthrate")
-def birthrate():
-    engine=create_engine(DATABASE_URL)
-    conn=engine.connect()
-    with engine.begin() as conn:
-        response=conn.execute("SELECT c.country, c.iso3_code, g.name AS geography,\
-	    sdg.name AS sdg, d.crude_birth as birthrate, d.year\
-        FROM demographic AS d\
-        JOIN country AS c\
-        ON d.country_id = d.id\
-        JOIN geography AS g\
-        ON c.geography_id = g.id\
-        JOIN sdg_region AS sdg\
-        ON c.sdg_region_id = sdg.id\
-        GROUP BY c.country, c.iso3_code, g.name,\
-	    sdg.name, d.crude_birth, d.year\
-        ORDER BY d.crude_birth DESC\
-")
-   
-    allData=[]
-    for r in response:
-        data={
-            "country":r[0],
-            "iso3_code":r[1],
-            "geography":r[2],
-            "sdg":r[3],
-            "birthrate":float(r[4]),
-            "year":r[5],
-
+            "geography":r[0],
+            "year":r[1],
+            "variable":float(r[num])
         }
         allData.append(data)
 
