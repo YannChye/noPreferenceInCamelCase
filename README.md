@@ -1,15 +1,17 @@
-noPreferenceInCamelCase/03_dashboard/images/
 # noPreferenceInCamelCase
 
 <!---Project Logo -->
 <br />
 <p align="center">
   <a href=>
-    <img src="03_dashboard/images/project_logo.jpg" alt="Logo" width="80" height="80">
+    <img src="03_dashboard/images/project_logo.jpg" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">World population trends 1950-2020</h3>
-
+  <p align="center">
+    A Data Visualisation
+    <br />
+</p>
 </p>
 
 
