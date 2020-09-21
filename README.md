@@ -3,24 +3,12 @@
 <!---Project Logo -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href=>
+    <img src="images/project_logo.jpeg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">World population trends 1950-2020</h3>
 
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
 </p>
 
 
@@ -41,7 +29,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-According to the ABS, the Australian population is set to double by 2075, which got us to thinking.  What are the macro trends?  How do they compare with the rest of the world?  So, like all good data nerds we went looking, found some data and crunched together a data viz "One Pager"! 
+According to the ABS, the Australian population is set to double by 2075, which got us to thinking ...  What have been the macro trends for things like life expectancy, birth rates, population size and growth and how do they compare with the rest of the world?  So, like all good data nerds we went looking.  We found some data, we crunched it together and here's our data viz "One Pager".  Hope you find it as interesting to use as we found making it.
 
 ### Built With
 * [pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html)
@@ -96,6 +84,9 @@ Your Python environment should also contain:
 * pandas
 
 
+
+
+
 ### Installation
 
 1. Get a free API Key at
@@ -135,6 +126,7 @@ Contributions are what make the open source community such an amazing place to b
 
 
 <!-- THE TEAM -->
+## The Team
 
 * Yann Chye
 * Susov Dhakal
@@ -164,8 +156,11 @@ Annual Demographic Indicators (XLSX, 33.41 MB)_.  Retrieved from: [https://popul
 Additional reference materials:
 
 _datapine dashboard knowledge base_ Retrieved from: [https://www.datapine.com/documentation/](https://www.datapine.com/documentation/)
+
 _Image Map Generator_ Retrieved from: [https://www.image-map.net/](https://www.image-map.net/)
+
 _Best-README-Template_ Retrieved from: [https://github.com/othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+
 _HTML Image Maps_ Retrieved from: [https://www.w3schools.com/htmL/html_images_imagemap.asp](https://www.w3schools.com/htmL/html_images_imagemap.asp)
 
 
