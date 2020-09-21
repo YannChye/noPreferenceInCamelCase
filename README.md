@@ -41,25 +41,60 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+According to the ABS, the Australian population is set to double by 2075, which got us to thinking.  What are the macro trends?  How do they compare with the rest of the world?  So, like all good data nerds we went looking, found some data and crunched together a data viz "One Pager"! 
 
 ### Built With
-* [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
-* [Html](https://developer.mozilla.org/en-US/docs/Web/HTML)
-* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS#:~:text=Cascading%20Style%20Sheets%20%28CSS%29%20is%20a%20stylesheet%20language,on%20paper%2C%20in%20speech%2C%20or%20on%20other%20media.)
+* [pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html)
+* [PostgreSQL](https://www.postgresql.org/)
 * [Python](https://www.python.org/about/)
 * [Flask](https://flask-doc.readthedocs.io/en/latest/)
 * [SQLAlchemy](https://docs.sqlalchemy.org/en/13/)
 * [d3js](https://d3js.org/)
+* [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
+* [Html](https://developer.mozilla.org/en-US/docs/Web/HTML)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS#:~:text=Cascading%20Style%20Sheets%20%28CSS%29%20is%20a%20stylesheet%20language,on%20paper%2C%20in%20speech%2C%20or%20on%20other%20media.)
 * [SweetAlert](https://sweetalert.js.org/guides/)
 * [Image-map](https://www.npmjs.com/package/image-map)
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
+To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
+* Python 3.6 (or later)
+To check your version
+```sh
+python --version
+```
+The latest version can be found at [https://www.python.org/downloads/](https://www.python.org/downloads/)
+
+* flask_sqlalchemy
+```sh
+pip install flask-sqlalchemy
+```
+
+* PostgreSQL
+```sh
+https://www.postgresql.org/download/
+```
+
+
+
+* geogson
+* gmaps
+* psycopg2
+* sqlalchemy-utils
+
+
+Your Python environment should also contain:
+* flask
+* html5lib
+* jinja2
+* jupyter
+* json5
+* pandas
+
 
 ### Installation
 
@@ -75,6 +110,11 @@ xxx install
 4. Enter your API in `config.js`
 ```JS
 const API_KEY = 'ENTER YOUR API';
+```
+5. Enter your PostgreSQL password in `password`
+```PY
+username='postgres'
+passord='password123'
 ```
 
 <!-- USAGE EXAMPLES -->
@@ -115,7 +155,7 @@ Annual Demographic Indicators (XLSX, 33.41 MB)_.  Retrieved from: [https://popul
 
 Additional reference materials:
 
-_datapine dashboard knowledge base_[https://www.datapine.com/documentation/](https://www.datapine.com/documentation/)
+_datapine dashboard knowledge base_ Retrieved from: [https://www.datapine.com/documentation/](https://www.datapine.com/documentation/)
 _Image Map Generator_ Retrieved from: [https://www.image-map.net/](https://www.image-map.net/)
 
 
