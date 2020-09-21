@@ -32,7 +32,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-According to the ABS, the Australian population is set to double by 2075, which got us to thinking ...  What have been the macro trends for things like life expectancy, birth rates, population size and growth and how do they compare with the rest of the world?  So, like all good data nerds we went looking.  We found some data, we crunched it together and here's our data viz "One Pager".  Hope you find it as interesting to use as we found making it.
+According to the ABS, the Australian population is set to double by 2075, which got us to thinking ...  What have been the macro trends for things like life expectancy, birth rates, population size and growth and how do they compare with the rest of the world?  So, like all good data nerds we went looking. 
+
+We found the 2019 United Nations (UN) World Population Prospects as a rich source for key demographic indicators across the world, we crunched it together and here's our data viz "One Pager".  Hope you find it as interesting to use as we found making it.
 
 ### Built With
 * [Python](https://www.python.org/about/)
@@ -48,6 +50,10 @@ According to the ABS, the Australian population is set to double by 2075, which 
   * [SweetAlert](https://sweetalert.js.org/guides/)
   * [Image-map](https://www.npmjs.com/package/image-map)
   * [Plotly](https://plotly.com/javascript/)
+
+<!-- USAGE EXAMPLES -->
+## Usage
+_Follow this link to explore and interact with our [Dashboard](https:)_
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -111,11 +117,6 @@ const API_KEY = 'ENTER YOUR API';
 username='postgres'
 passord='password123'
 ```
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-_For more details, please refer to the [Dashboard](https:)_
 
 <!-- CONTRIBUTING -->
 ## Contributing
