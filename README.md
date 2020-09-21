@@ -101,7 +101,7 @@ Your Python environment should also contain:
 1. Get a free API Key at
 2. Clone the repo
 ```sh
-git clone
+git clone https://github.com/YannChye/noPreferenceInCamelCase.git
 ```
 3. Install xxx packages
 ```sh
@@ -111,7 +111,7 @@ xxx install
 ```JS
 const API_KEY = 'ENTER YOUR API';
 ```
-5. Enter your PostgreSQL password in `password`
+5. Enter your PostgreSQL password in `password.py`
 ```PY
 username='postgres'
 passord='password123'
@@ -120,6 +120,7 @@ passord='password123'
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+_For more details, please refer to the [Dashboard](https:)_
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -127,14 +128,21 @@ passord='password123'
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b  xyz/abc`)
+2. Create your Feature Branch (`git checkout -b branchname`)
 3. Commit your Changes (`git commit -m 'Add some AmazingChanges'`)
-4. Push to the Branch (`git push origin xyx/abc`)
+4. Push to the Branch (`git push origin `)
 5. Open a Pull Request
 
 
-<!-- CONTACT -->
-## Contact
+<!-- THE TEAM -->
+
+* Yann Chye
+* Susov Dhakal
+* Michelle Hocking
+* Oriola Orekoya
+* Ian Lim
+***
+
 
 
 
@@ -157,6 +165,8 @@ Additional reference materials:
 
 _datapine dashboard knowledge base_ Retrieved from: [https://www.datapine.com/documentation/](https://www.datapine.com/documentation/)
 _Image Map Generator_ Retrieved from: [https://www.image-map.net/](https://www.image-map.net/)
+_Best-README-Template_ Retrieved from: [https://github.com/othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+_HTML Image Maps_ Retrieved from: [https://www.w3schools.com/htmL/html_images_imagemap.asp](https://www.w3schools.com/htmL/html_images_imagemap.asp)
 
 
 
