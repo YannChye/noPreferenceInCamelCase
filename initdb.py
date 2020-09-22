@@ -84,3 +84,11 @@ engine.execute("CREATE TABLE demographic (\
                     REFERENCES country(id),\
                     FOREIGN KEY (year)\
                     REFERENCES year(year))")
+
+# save data into SQL database
+yeardata.to_sql(name='year', con=engine, if_exists='append', index=False)
+sdgregiondata.to_sql(name='sdg_region', con=engine, if_exists='append', index=False)
+geogdata.to_sql(name='geography', con=engine, if_exists='append', index=False)
+countrydata.to_sql(name='country', con=engine, if_exists='append', index=False)
+popdata.to_sql(name='population', con=engine, if_exists='append', index=False)
+demodata.to_sql(name='demographic',con=engine, if_exists='append', index=False)
