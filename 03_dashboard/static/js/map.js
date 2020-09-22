@@ -7,7 +7,6 @@ for (i=0;i<70;i++) {
   years.push(i+1950);
 }
 
-// create responsive year progress bar
 function makeResponsive() {
   var svgArea = d3.select("#progress").select("svg");
   if (!svgArea.empty()) {
@@ -27,22 +26,23 @@ function makeResponsive() {
     .enter()
     .append("rect")
     .classed("year",true)
-    .attr("x",function(d,index) {
+    .attr("x",(d,index) => {
       return (svgWidth-40)/70*index;
     })
     .attr("y",5)
-    .attr("width",function(d,index) {
+    .attr("width",(d,index) => {
       return (svgWidth-40)/70-2
     })
     .attr("height",10)
     .attr("fill","#b5e7bd")
-  .text(function(d,i) {return years[i]})
+  .text((d,i) => {return years[i]})
   // when a year is selected
-  .on("click", function(d) {
+  .on("click", d => {
     year=d.path[0].innerHTML;
     d3.select(".year").text(year)
     d3.selectAll("rect")
       .attr("fill","#b5e7bd")
+    console.log(this)
     d3.select(this)
       .attr("fill","#1d79b4")
     Plotly.relayout("line",{shapes:[{
@@ -60,7 +60,7 @@ function makeResponsive() {
     }]})
     getData(varOfInterest[1],year) // update dashboard with selected year
   })
-  .on("mouseover",function(d) {
+  .on("mouseover",d => {
     toolTip.html(`<p>${this.innerHTML}</p>`)
       .style("left",`${d3.select(this).attr("x")}px`)
       .style("top","150px")
@@ -204,7 +204,9 @@ function buildMap(mapdata,minVal,maxVal) {
           },
           onEachFeature: function onEachFeature(feature,layer) {layer.on('click',function(e) {
             var continent=e.sourceTarget.feature.properties.geography;
+            var country=e.sourceTarget.feature.properties.ISO_A3;
             lineChartforContinent(continent); // function to highlight line chart when country is selected
+            getBar(country);
           })}
         }).bindPopup(
           "<b>"+feature.properties.ADMIN+"</b>"+"<hr>"+
@@ -395,27 +397,18 @@ lineChart("/api/geography/population")
 makeResponsive();
 d3.select("#progress > svg > g:nth-child(1) > rect:nth-child(70)").attr("fill","#1d79b4")
 
-//const url = "/api/population";
-var getYear = 2019;
-//var age = 0;
-
-var populationdata = []
-var getCountry = "China"
-var barCountry = []
-var barData = []
+// bar chart
 var barColours = ["#006666", "#006666", "#339999", "#006666","#006666"]
 
 
-function getBar() {
-    d3.json("/api/population/2019").then(function (data) {
-        data.forEach(function (data) {
-            if (data.year == getYear) {
-                populationdata.push(data);
-            }
-        })
+function getBar(country) {
+  var barCountry = []
+  var barData = []
+  fullUrl=varOfInterest[1]+year;
+    d3.json(fullUrl).then(function (data) {
         // get index value of country
-        for (let i = 0; i < populationdata.length; i++) {
-          if (populationdata[i].country == getCountry) {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].iso3_code == country) {
               let tableRow = i;
               if (i == 0) {
                  tableRow = (i + 2);
@@ -425,27 +418,27 @@ function getBar() {
                   tableRow = (i + 1);
                   barColours[2] = "#006666";
                   barColours[3] = "#339999";
-              } else if (i == populationdata.length - 2) {
+              } else if (i == data.length - 2) {
                   tableRow = (i - 1);
                   barColours[2] = "#006666";
                   barColours[1] = "#339999";
-              } else if (i == populationdata.length - 1) {
+              } else if (i == data.length - 1) {
                   tableRow = (i - 2);
                   barColours[2] = "#006666";
                   barColours[0] = "#339999";
               } else {
                   tableRow = i
               }
-              barCountry.push(populationdata[tableRow + 2].country);
-              barCountry.push(populationdata[tableRow + 1].country);
-              barCountry.push(populationdata[tableRow].country);
-              barCountry.push(populationdata[tableRow - 1].country);
-              barCountry.push(populationdata[tableRow - 2].country);
-              barData.push(populationdata[tableRow + 2].variable * 1000);
-              barData.push(populationdata[tableRow + 1].variable * 1000);
-              barData.push(populationdata[tableRow].variable * 1000);
-              barData.push(populationdata[tableRow - 1].variable * 1000);
-              barData.push(populationdata[tableRow - 2].variable * 1000);
+              barCountry.push(data[tableRow + 2].country);
+              barCountry.push(data[tableRow + 1].country);
+              barCountry.push(data[tableRow].country);
+              barCountry.push(data[tableRow - 1].country);
+              barCountry.push(data[tableRow - 2].country);
+              barData.push(data[tableRow + 2].variable * 1000);
+              barData.push(data[tableRow + 1].variable * 1000);
+              barData.push(data[tableRow].variable * 1000);
+              barData.push(data[tableRow - 1].variable * 1000);
+              barData.push(data[tableRow - 2].variable * 1000);
 
           };
       };
@@ -464,5 +457,3 @@ function getBar() {
       Plotly.newPlot("bar", trace1);
   })
 }
-
-getBar()
