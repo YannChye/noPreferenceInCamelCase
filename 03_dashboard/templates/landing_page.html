@@ -22,46 +22,37 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!--tells bootstrap what to put in drop down menu -->
+                <!-- tells bootstrap what to put in drop down menu  -->
                 <ul class="navbar-nav ml-auto">
-                    <!--puts menu items to right of navbar-brand -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardropdown" data-toggle="dropdown">
-                            Plot
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="Life_expectancy.html">Life Expectancy</a>
-                            <a class="dropdown-item" href="Crude_death.html">Crude Death</a>
-                            <a class="dropdown-item" href="Crude_birth.html">Crude Birth</a>
-                            <a class="dropdown-item" href="Population_growth.html">Population Growth</a>
-                            <a class="dropdown-item" href="age.html">Age(mortality)</a>
-                        </div>
+                    <!-- puts menu items to right of navbar-brand  -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="landing_page.html">Homepage</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="landing_page.html">Home Page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="our_team.html">Why We Did It</a>
+                        <a class="nav-link" href="about.html">About us</a>
                     </li>
                 </ul>
-            </div>
+            </div> 
         </div>
     </nav>
-    </div>
 
-
-    <div class="jumbotron vertical-center">
+    <div class="jumbotron vertical-center" style="padding-top:0px">
         <div class="container text-center" id="landing">
-            <h1><a href="index.html" >Changing demographics</a></h1><br>
+            <h2><a href="index.html" style="font-display: top;">Dashboard</a></h2><br>
+        </div>
+        
+        <div class=“btn-group”>
+            <button class="factorButton vertical-center" onclick="optionChanged(this)">Population</button>
+            <button class="factorButton" onclick="optionChanged(this)">Mortality Rate</button>
+            <button class="factorButton" onclick="optionChanged(this)">Life Expectancy</button>
+            <button class="factorButton" onclick="optionChanged(this)">Population Growth Rate</button>
+            <button class="factorButton" onclick="optionChanged(this)">Birth Rate</button>
         </div>
     </div>
-
-
-
 
     <div class="container">
         <div class="row borders">
-            <div class="col-lg-8" id="left" style="padding-right:20px; border-right: 1px solid #000000;">
+            <div class="col-lg-8 .d-block" id="left" style="padding-right:20px; border-right: 1px solid #000000;">
                 Life Expectancy
             </div>
             <div class="col-lg-4">
@@ -71,9 +62,9 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="footer">
-            <p>About us.</p>
+    <div class="row" id="footer">
+        <div class="container text-center">
+            <p> Data sourced from United Nations, Department of Economic and Social Affairs, Population Division (2019). World Population Prospects 2019, Online Edition. Rev. 1.</p>
         </div>
     </div>
 
