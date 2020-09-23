@@ -2,8 +2,8 @@
 import os
 import pandas as pd
 import sys
-sys.path.append('./00_config')
-from password import username, password
+#sys.path.append('./00_config')
+#from password import username, password
 from sqlalchemy import create_engine, inspect
 from sqlalchemy_utils import database_exists, create_database
 
@@ -15,9 +15,9 @@ poppath=os.path.join('01_transform_data','population.csv')
 demopath=os.path.join('01_transform_data','demographic.csv')
 
 # create engine and database
-engine = create_engine('postgresql://'+username+':'+password+'@localhost/world_population')
-if not database_exists(engine.url):
-    create_database(engine.url)
+engine = create_engine('postgres://fdzpdoalcyhfay:c1b7fa0972601f177483cb928506b6ea4da919d719879882a264196bc3094f14@ec2-35-169-92-231.compute-1.amazonaws.com:5432/dfjp6hb6mai80h')
+#if not database_exists(engine.url):
+#    create_database(engine.url)
 
 # import data
 countrydata=pd.read_csv(countrypath)

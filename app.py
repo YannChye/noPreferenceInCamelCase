@@ -1,6 +1,8 @@
 # import necessary libraries
 import os
 import sys
+#sys.path.append('./00_config')
+#from password import username, password
 from flask import (
     Flask,
     render_template,
@@ -18,6 +20,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
+#export DATABASE_URL="postgresql://"+username+":"+password+"@localhost/world_population"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
 
 # Remove tracking modifications

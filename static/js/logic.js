@@ -14,7 +14,7 @@ function makeResponsive() {
     svgArea.remove();
   }
   // set year SVG dimension
-  var svgHeight=30;
+  var svgHeight=50;
   var svgWidth=window.innerWidth;
   // create svg container
   var svg = d3.select(".progress").append("svg")
@@ -77,9 +77,10 @@ function makeResponsive() {
   })
   .on("mouseover",function(d) {
     toolTip.html(`<p>${this.innerHTML}</p>`)
-      .style("left",`${d3.select(this).attr("x")}px`)
-      .style("top","160px")
+      .style("left",`${d3.select(this).attr("x")-10}px`)
+      .style("top","200px")
       .style("background","grey")
+      .style("opacity",1)
     d3.select(this)
       .attr("height",15)
       .attr("y",0)
@@ -88,7 +89,7 @@ function makeResponsive() {
     d3.select(this)
       .attr("height",10)
       .attr("y",5);
-    toolTip.style("background","none")
+    toolTip.style("opacity",0)
   })
   svg.append("g")
     .selectAll("text")
@@ -245,10 +246,10 @@ function buildMap(mapdata,minVal,maxVal) {
     legend.onAdd=function() {
       var div=L.DomUtil.create("div","info legend");
       var labels=[];
-      var legendInfo="<h3>"+varOfInterest[0]
+      var legendInfo="<strong>"+varOfInterest[0]
         +(varOfInterest[0]=="Life Expectancy"?" (years)":"")
         +(varOfInterest[0]=="Population Growth Rate"?" (%)":"")
-        +"</h3><div class=\"labels\"><div class=\"min\">"+
+        +"</strong><div class=\"labels\"><div class=\"min\">"+
         (varOfInterest[0]=="Population"?(minVal*1000).toLocaleString():minVal)
         +"</div><div class=\"med\">"+
         (varOfInterest[0]=="Population"?(((maxVal-minVal)/2+minVal)*1000).toLocaleString():((maxVal-minVal)/2+minVal))
@@ -351,9 +352,22 @@ function lineChart(url) {
     var data=[traceAfrica,traceAsia,traceEurope,traceLatame,traceNorame,traceOceania]
     var layout={
       showlegend:false,
+      margin:{
+        l:50,
+        r:0,
+        b:50,
+        t:50,
+        pad:0
+      },
       hovermode:"closest",
-      title:varOfInterest[0]+" by Continent over the Past 70 Years",
-      xaxis:{title:"Year"},
+      title:varOfInterest[0]+" by Continent<br>over the Past 70 Years",
+      font:{
+        family:'Times New Roman, Times, serif',
+        size:11
+      },
+      xaxis:{title:{
+        text:"Year",
+        standoff:5}},
       yaxis:{title:varOfInterest[0]+
         (varOfInterest[0]=="Life Expectancy"?" (years)":"")+
         (varOfInterest[0]=="Population Growth Rate"?" (%)":"")},
@@ -402,7 +416,7 @@ function lineChartforContinent(continent) {
 
 // bar chart
 function getBar(countryCode) {
-  var barColours = ["#b5e7bd","#b5e7bd","#1d79b4","#b5e7bd","#b5e7bd"]
+  var barColours = ["#89d2ca","#89d2ca","#1d79b4","#89d2ca","#89d2ca"]
   var barCountry = []
   var barData = []
   fullUrl=varOfInterest[1]+year;
@@ -414,19 +428,19 @@ function getBar(countryCode) {
               let tableRow = i;
               if (i == 0) {
                  tableRow = (i + 2);
-                 barColours[2] = "#b5e7bd";
+                 barColours[2] = "#89d2ca";
                  barColours[4] = "#1d79b4";
               } else if (i == 1) {
                   tableRow = (i + 1);
-                  barColours[2] = "#b5e7bd";
+                  barColours[2] = "#89d2ca";
                   barColours[3] = "#1d79b4";
               } else if (i == data.length - 2) {
                   tableRow = (i - 1);
-                  barColours[2] = "#b5e7bd";
+                  barColours[2] = "#89d2ca";
                   barColours[1] = "#1d79b4";
               } else if (i == data.length - 1) {
                   tableRow = (i - 2);
-                  barColours[2] = "#b5e7bd";
+                  barColours[2] = "#89d2ca";
                   barColours[0] = "#1d79b4";
               } else {
                   tableRow = i
@@ -473,6 +487,7 @@ function getBar(countryCode) {
           type: "bar",
           x: barData,
           y: barCountry,
+          width:0.8,
           orientation: "h",
           hoverinfo: barData,
           marker: {
@@ -480,11 +495,23 @@ function getBar(countryCode) {
           }
       }];
       var layoutBar={
+        autosize:true,
+        margin:{
+          l:100,
+          r:0,
+          b:50,
+          t:50,
+          pad:0
+        },
         hovermode:'closest',
-        title:"Relative "+varOfInterest[0]+" of "+country+" in the World.",
-        xaxis:{title:varOfInterest[0]+
+        title:"Relative "+varOfInterest[0]+" of<br>"+country+" in the World",
+        font:{
+          family:'Times New Roman, Times, serif',
+          size:10
+        },
+        xaxis:{title:{text:varOfInterest[0]+
           (varOfInterest[0]=="Life Expectancy"?" (years)":"")+
-          (varOfInterest[0]=="Population Growth Rate"?" (%)":"")}}
+          (varOfInterest[0]=="Population Growth Rate"?" (%)":""),standoff:10}}}
       Plotly.newPlot("bar",traceBar,layoutBar);
   })
 }
