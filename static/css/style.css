@@ -5,8 +5,8 @@ body {
   background:white;
 }
 
-#map,#bar {
-  height: 500px;
+#map,#bar,#line {
+  height: 100%;
   width:100%;
   text-align: center;
 }

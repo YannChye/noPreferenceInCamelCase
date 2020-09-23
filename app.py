@@ -7,6 +7,7 @@ from flask import (
     Flask,
     render_template,
     jsonify)
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 
@@ -19,14 +20,15 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-# DATABASE_URL will contain the database connection string:
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '')
-# Connects to the database using the app config
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
+
+# Remove tracking modifications
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 # create and connect to engine
-engine=create_engine(DATABASE_URL)
-conn=engine.connect()
+engine=db.engine
 
 # create route that renders landing page
 @app.route("/")
