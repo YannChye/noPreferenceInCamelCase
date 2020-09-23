@@ -32,21 +32,28 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-According to the ABS, the Australian population is set to double by 2075, which got us to thinking ...  What have been the macro trends for things like life expectancy, birth rates, population size and growth and how do they compare with the rest of the world?  So, like all good data nerds we went looking.  We found some data, we crunched it together and here's our data viz "One Pager".  Hope you find it as interesting to use as we found making it.
+According to the ABS, the Australian population is set to double by 2075, which got us to thinking ...  What have been the macro trends for things like life expectancy, birth rates, population size and growth and how do they compare with the rest of the world?  So, like all good data nerds we went looking. 
+
+We found the 2019 United Nations (UN) World Population Prospects as a rich source for key demographic indicators across the world, we crunched it together and here's our data viz "One Pager".  Hope you find it as interesting to use as we found making it.
 
 ### Built With
-* [pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html)
-* [PostgreSQL](https://www.postgresql.org/)
 * [Python](https://www.python.org/about/)
-* [Flask](https://flask-doc.readthedocs.io/en/latest/)
-* [SQLAlchemy](https://docs.sqlalchemy.org/en/13/)
-* [d3js](https://d3js.org/)
-* [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
-* [Html](https://developer.mozilla.org/en-US/docs/Web/HTML)
+  * [SQLAlchemy](https://docs.sqlalchemy.org/en/13/)
+  * [pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html)
+  * [Flask](https://flask-doc.readthedocs.io/en/latest/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS#:~:text=Cascading%20Style%20Sheets%20%28CSS%29%20is%20a%20stylesheet%20language,on%20paper%2C%20in%20speech%2C%20or%20on%20other%20media.)
-* [SweetAlert](https://sweetalert.js.org/guides/)
-* [Image-map](https://www.npmjs.com/package/image-map)
+* [Javascript](https://developer.mozilla.org/en-US/docs/Web/javascript)
+  * [d3.js](https://d3js.org/)
+  * [Leaflet](https://leafletjs.com/)
+  * [SweetAlert](https://sweetalert.js.org/guides/)
+  * [Image-map](https://www.npmjs.com/package/image-map)
+  * [Plotly](https://plotly.com/javascript/)
 
+<!-- USAGE EXAMPLES -->
+## Usage
+_Follow this link to explore and interact with our [Dashboard](https:)_
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -111,11 +118,6 @@ username='postgres'
 passord='password123'
 ```
 
-<!-- USAGE EXAMPLES -->
-## Usage
-
-_For more details, please refer to the [Dashboard](https:)_
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -155,6 +157,8 @@ _United Nations Department of Economic and Social Affairs Population Dynamics _W
 
 _United Nations Department of Economic and Social Affairs Population Dynamics _World Population Prospects 2019_ : 	
 Annual Demographic Indicators (XLSX, 33.41 MB)_.  Retrieved from: [https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/](https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/)
+
+_GeoJSON polygons for country boundaries_. Retrieved from: [https://github.com/datasets/geo-countries](https://github.com/datasets/geo-countries)
 
 Additional reference materials:
 
