@@ -25,11 +25,15 @@
   border-radius: 0 !important;
 }
 
+#teammembers {
+  height: 10vh;
+}
+
 div.row {
   margin: 10px;
   border: 0px 1px 1px 1px solid #ccc;
   float: left;
-  padding: 10px;
+  padding: 0px;
   text-align: left;
   width: 100%;
   height: auto;
@@ -45,21 +49,21 @@ div.row {
 }
 
 #left {
-  height: 70vh;
+  height: 60vh;
   border:1px #000000;
   display: block;
-  column-span: 8;
+  column-span: 6;
 }
 
 #top-right {
-  height: 35vh;
+  height: 30vh;
   border:1px #000000;
   display: block;
 }
 
 #bottom-right {
 
-  height: 35vh;
+  height: 30vh;
   border:1px #000000;
   display: block;
 }
@@ -70,13 +74,15 @@ a {
 }
 
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #336666;
-  color: #000000;
-  text-align: center;
+  position: relative; 
+  padding: 10px 10px 0px 10px; 
+  bottom: 0; 
+  width: 100%; 
+  /* Height of the footer*/  
+  height: 30px; 
+  background:#336666; 
+  font-size: smaller;
+  color: #FFFFFF;
 }
 
 .legend {
@@ -123,20 +129,20 @@ a {
   top:-10px
 }
 
-h1 {
+h1,h2 {
   text-align: center;
 }
 
 .factorButton {
-  background:#e1f5db;
-  border: 1px solid #1d79b4;
+  background: #95dada;
+  border: 1px solid #000000;
   font-weight:bold;
   color: black;
-  padding: 10px 24px;
+  padding: 30px 24px;
   cursor: pointer;
   float: left; /* Float the buttons side by side */
   width:20%;
-  height:50px;
+  height:60px;
 }
 
 .btn-group button:not(:last-child) {
