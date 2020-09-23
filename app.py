@@ -1,8 +1,6 @@
 # import necessary libraries
 import os
 import sys
-sys.path.append('00_config')
-from password import username, password
 from flask import (
     Flask,
     render_template,
