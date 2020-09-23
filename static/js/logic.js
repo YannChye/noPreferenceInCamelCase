@@ -7,8 +7,9 @@ for (i=0;i<70;i++) {
   years.push(i+1950);
 }
 
+// create year progress bar
 function makeResponsive() {
-  var svgArea = d3.select("#progress").select("svg");
+  var svgArea = d3.select(".progress").select("svg");
   if (!svgArea.empty()) {
     svgArea.remove();
   }
@@ -16,7 +17,7 @@ function makeResponsive() {
   var svgHeight=30;
   var svgWidth=window.innerWidth;
   // create svg container
-  var svg = d3.select("#progress").append("svg")
+  var svg = d3.select(".progress").append("svg")
     .attr("height", svgHeight)
     .attr("width", svgWidth);
   // each year as an svg rectangle
@@ -27,25 +28,24 @@ function makeResponsive() {
     .append("rect")
     .classed("year",true)
     .attr("x",(d,index) => {
-      return (svgWidth-40)/70*index;
+      return (svgWidth-40)/years.length*index+20;
     })
     .attr("y",5)
     .attr("width",(d,index) => {
-      return (svgWidth-40)/70-2
+      return (svgWidth-40)/years.length-2
     })
     .attr("height",10)
     .attr("fill","#b5e7bd")
-  .text((d,i) => {return years[i]})
+    .text((d,i) => {return years[i]})
   // when a year is selected
-  .on("click", d => {
+    .on("click",function(d) {
     year=d.path[0].innerHTML;
     d3.select(".year").text(year)
     d3.selectAll("rect")
       .attr("fill","#b5e7bd")
-    console.log(this)
     d3.select(this)
       .attr("fill","#1d79b4")
-    Plotly.relayout("line",{shapes:[{
+    Plotly.relayout("line",{shapes:[{ //update line chart year indicator
       type:"line",
       x0:year,
       y0:0,
@@ -57,13 +57,28 @@ function makeResponsive() {
         width:1.5,
         dash:"dot"
       }
-    }]})
+    }],
+    annotations:[{
+        x:year,
+        y:1.05,
+        xref:'x',
+        yref:'paper',
+        text:"<b>"+year+"<b>",
+        showarrow:false,
+        font:{
+          size:12,
+          color:"#0a7c45"
+        }
+      }]
+    })
+    myMap.closePopup(); //close map popup
     getData(varOfInterest[1],year) // update dashboard with selected year
+    getBar(countryIso)
   })
-  .on("mouseover",d => {
+  .on("mouseover",function(d) {
     toolTip.html(`<p>${this.innerHTML}</p>`)
       .style("left",`${d3.select(this).attr("x")}px`)
-      .style("top","150px")
+      .style("top","160px")
       .style("background","grey")
     d3.select(this)
       .attr("height",15)
@@ -80,39 +95,40 @@ function makeResponsive() {
     .data(years)
     .enter()
     .append("text")
-    .attr("x",function(d,index) {
-      return (svgWidth-40)/70*index;
+    .attr("x",(d,index) => {
+      return (svgWidth-40)/70*index+10;
     })
     .attr("y",25)
     .attr("font-size","10px")
-    .text(function(d) {
+    .text(d => {
       if ([1950,1960,1970,1980,1990,2000,2010,2019].includes(d)) {
         return d
       }
     })
 }
 
-//toolTip for year
+//toolTip for year popup
 var toolTip=d3.select(".progress").append("div")
   .attr("class","tooltip")
 
 // initial map
 var myMap = L.map("map", {
   center: [0,0],
-  zoom: 2
+  zoom: 1
 });
 
 L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
+  maxZoom: 10,
   id: "light-v10",
   accessToken: API_KEY
 }).addTo(myMap);
 
 // get data by year
 function getData(url,year) {
-  fullUrl=url+year;
-  d3.json(fullUrl).then(function(data) {
+  let fullUrl=url+year;
+  getBar(countryIso); //update bar chart
+  d3.json(fullUrl).then((data) => {
     var minMax=getMinMax()
     buildMap(data,minMax[0],minMax[1])
     })
@@ -121,7 +137,7 @@ function getData(url,year) {
 //get minimum and maximum value of each variable
 function getMinMax() {  
   switch(varOfInterest[0]) {
-    case "Population":
+    case "Total Population":
       return minMax=[10,1500000];
     case "Mortality Rate":
       return minMax=[0,60];
@@ -135,7 +151,7 @@ function getMinMax() {
   }
 
 // function for choropleth colours
-var colors=["#f0fae9","#e1f5db","#c8eec9","#b5e7bd","#9fdbbf","#89d2ca","#6bbcce","#57add2","#3597c7","#1d79b4"]
+var colors=["#e5f7e0","#d6f3d7","#c8eec9","#b5e7bd","#9fdbbf","#89d2ca","#6bbcce","#57add2","#3597c7","#1d79b4"]
 
 function getInterval(minVal,maxVal) {
   let interval=(maxVal-minVal)/10
@@ -205,16 +221,18 @@ function buildMap(mapdata,minVal,maxVal) {
           onEachFeature: function onEachFeature(feature,layer) {layer.on('click',function(e) {
             var continent=e.sourceTarget.feature.properties.geography;
             var country=e.sourceTarget.feature.properties.ISO_A3;
+            if (continent!==undefined) {
             lineChartforContinent(continent); // function to highlight line chart when country is selected
             getBar(country);
-          })}
+            countryIso=country;
+          }})}
         }).bindPopup(
           "<b>"+feature.properties.ADMIN+"</b>"+"<hr>"+
           (feature.properties.varOfInterest===undefined?"no data":
           "<b>Continent</b>: "+feature.properties.geography+"<br>"+
           "<b>Region</b>: "+feature.properties.region+"<br>"+
           "<b>"+varOfInterest[0]+"</b>: "+
-          (varOfInterest[0]=="Population"?(feature.properties.varOfInterest*1000).toLocaleString():
+          (varOfInterest[0]=="Total Population"?(feature.properties.varOfInterest*1000).toLocaleString():
           Math.round(feature.properties.varOfInterest*100)/100)+
           (varOfInterest[0]=="Life Expectancy"?" years":"")+
           (varOfInterest[0]=="Population Growth Rate"?"%":"")
@@ -266,28 +284,31 @@ function lineChart(url) {
     var traceAfrica={
       x:years,
       y:aggregPop[0],
+      hovertemplate:`<b>Africa</b><br>year: %{x}<br>%{y}`,
       type:"line",
-      name:"Africa",
+      name:"",
       line:{
-        color:"rgba(232,232,232,0.5)",
+        color:"rgba(219,219,219,0.5)",
         width:3
       }
     }
     var traceAsia={
       x:years,
       y:aggregPop[1],
+      hovertemplate:`<b>Asia</b><br>year: %{x}<br>%{y}`,
       type:"line",
-      name:"Asia",
+      name:"",
       line:{
-        color:"rgba(232,232,232,0.5)",
+        color:"rgba(219,219,219,0.5)",
         width:3
       }
     }
     var traceEurope={
       x:years,
       y:aggregPop[2],
+      hovertemplate:`<b>Europe</b><br>year: %{x}<br>%{y}`,
       type:"line",
-      name:"Europe",
+      name:"",
       line:{
         color:"rgba(232,232,232,0.5)",
         width:3
@@ -296,38 +317,42 @@ function lineChart(url) {
     var traceLatame={
       x:years,
       y:aggregPop[3],
+      hovertemplate:`<b>Latin America</b><br>year: %{x}<br>%{y}`,
       type:"line",
-      name:"Latin America And The Caribbean",
+      name:"",
       line:{
-        color:"rgba(232,232,232,0.2)",
+        color:"rgba(219,219,219,0.5)",
         width:3
       }
     }
     var traceNorame={
       x:years,
       y:aggregPop[4],
+      hovertemplate:`<b>Northern America</b><br>year: %{x}<br>%{y}`,
       type:"line",
-      name:"Northern America",
+      name:"",
       line:{
-        color:"rgba(232,232,232,0.5)",
+        color:"rgba(219,219,219,0.5)",
         width:3
       }
     }
     var traceOceania={
       x:years,
       y:aggregPop[5],
+      hovertemplate:`<b>Oceania</b><br>year: %{x}<br>%{y}`,
       type:"line",
-      name:"Oceania",
+      name:"",
       line:{
-        color:"rgba(232,232,232,0.5)",
+        color:"rgba(219,219,219,0.5)",
         width:3
       }
     }
     // base line plot
     var data=[traceAfrica,traceAsia,traceEurope,traceLatame,traceNorame,traceOceania]
     var layout={
-      showlegend:true,
-      title:varOfInterest[0]+" over the Past 70 Years",
+      showlegend:false,
+      hovermode:"closest",
+      title:varOfInterest[0]+" by Continent over the Past 70 Years",
       xaxis:{title:"Year"},
       yaxis:{title:varOfInterest[0]+
         (varOfInterest[0]=="Life Expectancy"?" (years)":"")+
@@ -340,11 +365,25 @@ function lineChart(url) {
         yref:"paper",
         y1:1,
         line:{
-          color:"grey",
+          color:"#0a7c45",
           width:1.5,
           dash:"dot"
         }
-      }]
+      }],
+      annotations:[
+        {
+          x:year,
+          y:1.05,
+          xref:'x',
+          yref:'paper',
+          text:"<b>"+year+"<b>",
+          showarrow:false,
+          font:{
+            size:12,
+            color:"#0a7c45"
+          }
+        }
+      ]
     }
     Plotly.newPlot("line",data,layout);
   })
@@ -361,9 +400,100 @@ function lineChartforContinent(continent) {
   Plotly.restyle("line",{"line.color":["#1d79b4"]},num)
 }
 
+// bar chart
+function getBar(countryCode) {
+  var barColours = ["#b5e7bd","#b5e7bd","#1d79b4","#b5e7bd","#b5e7bd"]
+  var barCountry = []
+  var barData = []
+  fullUrl=varOfInterest[1]+year;
+    d3.json(fullUrl).then(function (data) {
+        // get index value of country
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].iso3_code == countryCode) {
+              var country=data[i].country
+              let tableRow = i;
+              if (i == 0) {
+                 tableRow = (i + 2);
+                 barColours[2] = "#b5e7bd";
+                 barColours[4] = "#1d79b4";
+              } else if (i == 1) {
+                  tableRow = (i + 1);
+                  barColours[2] = "#b5e7bd";
+                  barColours[3] = "#1d79b4";
+              } else if (i == data.length - 2) {
+                  tableRow = (i - 1);
+                  barColours[2] = "#b5e7bd";
+                  barColours[1] = "#1d79b4";
+              } else if (i == data.length - 1) {
+                  tableRow = (i - 2);
+                  barColours[2] = "#b5e7bd";
+                  barColours[0] = "#1d79b4";
+              } else {
+                  tableRow = i
+              }
+              barCountry.push(data[tableRow + 2].country+" ");
+              barCountry.push(data[tableRow + 1].country+" ");
+              barCountry.push(data[tableRow].country+" ");
+              barCountry.push(data[tableRow - 1].country+" ");
+              barCountry.push(data[tableRow - 2].country+" ");
+              if (varOfInterest[0]=="Total Population") {
+                barData.push(data[tableRow + 2].variable * 1000);
+                barData.push(data[tableRow + 1].variable * 1000);
+                barData.push(data[tableRow].variable * 1000);
+                barData.push(data[tableRow - 1].variable * 1000);
+                barData.push(data[tableRow - 2].variable * 1000);
+              } else {
+                barData.push(data[tableRow + 2].variable);
+                barData.push(data[tableRow + 1].variable);
+                barData.push(data[tableRow].variable);
+                barData.push(data[tableRow - 1].variable);
+                barData.push(data[tableRow - 2].variable);
+              }
+
+          };
+      };
+      // wraparound long country names
+      for (i=0;i<barCountry.length;i++) {
+        if (barCountry[i].length>15) {
+          var splitted=barCountry[i].split(" ");
+          let joined=""
+          for (j=0;j<splitted.length;j++) {
+            if (splitted[j].length>8 || joined.length>8) {
+              if (!joined.includes("<br>")) {
+                joined=joined+" <br>"+splitted[j]
+              }
+              else {joined=joined+" "+splitted[j]}
+            }
+            else {joined=joined+" "+splitted[j]}
+          }      
+          barCountry[i]=joined;
+            }
+        }
+      var traceBar = [{
+          type: "bar",
+          x: barData,
+          y: barCountry,
+          orientation: "h",
+          hoverinfo: barData,
+          marker: {
+              color: barColours
+          }
+      }];
+      var layoutBar={
+        hovermode:'closest',
+        title:"Relative "+varOfInterest[0]+" of "+country+" in the World.",
+        xaxis:{title:varOfInterest[0]+
+          (varOfInterest[0]=="Life Expectancy"?" (years)":"")+
+          (varOfInterest[0]=="Population Growth Rate"?" (%)":"")}}
+      Plotly.newPlot("bar",traceBar,layoutBar);
+  })
+}
+
 // function to toggle between demographic variables
 function optionChanged(variable) {
-  if (variable.innerHTML=="Population") {
+  myMap.closePopup(); //close map popup
+  d3.select(".mainVar").text(variable.innerHTML)
+  if (variable.innerHTML=="Total Population") {
     var url="/api/population/";
     var geographyUrl="/api/geography/population";
   }
@@ -390,70 +520,11 @@ function optionChanged(variable) {
 }
 
 // initial/default view
-var varOfInterest=["Population","/api/population/"];
+var countryIso="AUS";
+var varOfInterest=["Total Population","/api/population/"];
 var year=2019;
 getData(varOfInterest[1],year);
 lineChart("/api/geography/population")
+getBar(countryIso);
 makeResponsive();
 d3.select("#progress > svg > g:nth-child(1) > rect:nth-child(70)").attr("fill","#1d79b4")
-
-// bar chart
-var barColours = ["#006666", "#006666", "#339999", "#006666","#006666"]
-
-
-function getBar(country) {
-  var barCountry = []
-  var barData = []
-  fullUrl=varOfInterest[1]+year;
-    d3.json(fullUrl).then(function (data) {
-        // get index value of country
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].iso3_code == country) {
-              let tableRow = i;
-              if (i == 0) {
-                 tableRow = (i + 2);
-                 barColours[2] = "#006666";
-                 barColours[4] = "#339999";
-              } else if (i == 1) {
-                  tableRow = (i + 1);
-                  barColours[2] = "#006666";
-                  barColours[3] = "#339999";
-              } else if (i == data.length - 2) {
-                  tableRow = (i - 1);
-                  barColours[2] = "#006666";
-                  barColours[1] = "#339999";
-              } else if (i == data.length - 1) {
-                  tableRow = (i - 2);
-                  barColours[2] = "#006666";
-                  barColours[0] = "#339999";
-              } else {
-                  tableRow = i
-              }
-              barCountry.push(data[tableRow + 2].country);
-              barCountry.push(data[tableRow + 1].country);
-              barCountry.push(data[tableRow].country);
-              barCountry.push(data[tableRow - 1].country);
-              barCountry.push(data[tableRow - 2].country);
-              barData.push(data[tableRow + 2].variable * 1000);
-              barData.push(data[tableRow + 1].variable * 1000);
-              barData.push(data[tableRow].variable * 1000);
-              barData.push(data[tableRow - 1].variable * 1000);
-              barData.push(data[tableRow - 2].variable * 1000);
-
-          };
-      };
-      // create array for bar chart
-
-      var trace1 = [{
-          type: "bar",
-          x: barData,
-          y: barCountry,
-          orientation: "h",
-          hoverinfo: barData,
-          marker: {
-              color: barColours
-          }
-      }];
-      Plotly.newPlot("bar", trace1);
-  })
-}

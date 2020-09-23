@@ -1,7 +1,7 @@
 # import necessary libraries
 import os
 import sys
-sys.path.append('../00_config')
+sys.path.append('00_config')
 from password import username, password
 from flask import (
     Flask,
@@ -29,6 +29,10 @@ conn=engine.connect()
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route("/tech")
+def tech():
+    return render_template("index2.html")
 
 # create routes for various APIs
 # population data

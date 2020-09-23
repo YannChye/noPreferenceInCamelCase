@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Changing world demographics of the past 70 years</title>
+    <title>World Demographics</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 
@@ -16,7 +22,7 @@
         <div class="container">
             <!-- Within navbar to remove horizontal padding at breakpoints below specified -->
             <!-- Create hamburger -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,10 +32,10 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- puts menu items to right of navbar-brand  -->
                     <li class="nav-item">
-                        <a class="nav-link" href="landing_page.html">Homepage</a>
+                        <a class="nav-link" href="/">Homepage</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">About us</a>
+                        <a class="nav-link" href="/about">About us</a>
                     </li>
                 </ul>
             </div> 
@@ -38,28 +44,37 @@
 
     <div class="jumbotron vertical-center" style="padding-top:0px">
         <div class="container text-center" id="landing">
-            <h2><a href="index.html" style="font-display: top;">Dashboard</a></h2><br>
+            <h2><a class="mainVar" href="index.html" style="font-display: top;">Total Population</a></h2>
+            <h4 class="year">2019</h4>
         </div>
-        
         <div class=“btn-group”>
-            <button class="factorButton vertical-center" onclick="optionChanged(this)">Population</button>
+            <button class="factorButton vertical-center" onclick="optionChanged(this)">Total Population</button>
+            <button class="factorButton" onclick="optionChanged(this)">Birth Rate</button>
             <button class="factorButton" onclick="optionChanged(this)">Mortality Rate</button>
             <button class="factorButton" onclick="optionChanged(this)">Life Expectancy</button>
             <button class="factorButton" onclick="optionChanged(this)">Population Growth Rate</button>
-            <button class="factorButton" onclick="optionChanged(this)">Birth Rate</button>
         </div>
     </div>
-
+    <br>
+    <br>
+    <!-- progress bar for years -->
+    <div id="progress" class="progress"></div>
     <div class="container">
         <div class="row borders">
-            <div class="col-lg-8 .d-block" id="left" style="padding-right:20px; border-right: 1px solid #000000;">
-                Life Expectancy
+            <div class="col-lg-7 .d-block" id="left">
+                <h3>Click on a country to find out more</h3>
+                <div id="map"></div>
             </div>
-            <div class="col-lg-4">
-                <div class="row" id = "top-right">Australia: Life Expectancy</div>
-                <div class="row" id = "bottom-right">Top 5: Life Expectancy</div>
+            <div class="col-lg-5">
+                <div id = "line">
+                </div>
+                <div id = "bar">
+                </div>
             </div>
         </div>
+        <p class="footnote">Mortality rate = deaths per 1,000 population.
+            <br>Birth rate = births per 1,000 population.
+        </p>
     </div>
 
     <div class="row" id="footer">
@@ -67,13 +82,26 @@
             <p> Data sourced from United Nations, Department of Economic and Social Affairs, Population Division (2019). World Population Prospects 2019, Online Edition. Rev. 1.</p>
         </div>
     </div>
-
+    <!-- ImageMap JavaScript -->
     <script src="https://unpkg.com/image-map/dist/image-map.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <!-- D3 JavaScript -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <!-- SweetAlert JavaScript -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Plotly JavaScript -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="../static/js/tech.js"></script>
+    <!-- our JavaScript -->
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
+    <script type="{{ url_for('static', filename='js/tech.js') }}"></script>
 </body>
 </html>

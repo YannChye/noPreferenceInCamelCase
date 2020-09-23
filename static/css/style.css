@@ -1,28 +1,57 @@
 
-#map {
-  height: 1000px;
-  width:1000px;
+body {
+  font-family:'Times New Roman', Times, serif;
+  line-height: 1;
+  background:white;
+}
+
+#map,#bar {
+  height: 500px;
+  width:100%;
   text-align: center;
 }
 
-#bar {
-  height: 400px;
-  width: 400px;
-  }
-
 .bg-custom {
-    background-color: #336666 !important;
+    background-color:#6bbcce;
 }
-
+#progress {
+  height:50px;
+  background:white;
+}
 .navbar {
-  border-radius: 0 !important;
+  border-radius: 0;
+  height:7vh;
+}
+button.navbar-toggler {
+  border:1px solid #ededed;
+}
+.navbar-collapse {
+  position:relative;
+  top:10px;
+}
+#navbarDropdown:focus{
+  background: #ededed;
+}
+.dropdown-menu {
+  box-shadow:1px 1px 5px #777777;
+  border:none;
+  position:relative;
+  top:48px;
+}
+.jumbotron {
+  background-color: #3597c7;
+  height: 15vh;
+  margin-bottom: 0;
+  border-radius: 0;
 }
 
-.jumbotron {
-  background-color: #339999 !important;
-  height: 10vh;
-  margin-bottom: 0;
-  border-radius: 0 !important;
+#line {
+  height:100%
+}
+.container {
+  border:0px;
+  margin:0px;
+  padding:0px 0px 0px 0px !important;
 }
 
 #teammembers {
@@ -39,20 +68,12 @@ div.row {
   height: auto;
 }
 
-.dropdown-menu {
-  border-radius: 0 !important;
-  background-color: #339999 !important;
-}
 
-.dropdown-item {
-  background-color: #339999 !important;
-}
 
 #left {
   height: 60vh;
-  border:1px #000000;
   display: block;
-  column-span: 6;
+  border-right: 1px solid #000000;
 }
 
 #top-right {
@@ -69,14 +90,14 @@ div.row {
 }
 
 a {
-  color: #000000;
+  color:lightgrey;
   text-decoration: none !important; 
 }
 
-.footer {
+#footer {
   position: relative; 
   padding: 10px 10px 0px 10px; 
-  bottom: 0; 
+  bottom: 0%; 
   width: 100%; 
   /* Height of the footer*/  
   height: 30px; 
@@ -87,7 +108,7 @@ a {
 
 .legend {
   padding: 6px 8px;
-  font: 12px Arial, Helvetica, sans-serif;
+  font: 10px;
   font-weight: bold;
   color: #555;
   background: #fff;
@@ -134,15 +155,19 @@ h1,h2 {
 }
 
 .factorButton {
-  background: #95dada;
-  border: 1px solid #000000;
-  font-weight:bold;
+  background: #9fdbbf;
+  border: 1px solid white;
   color: black;
-  padding: 30px 24px;
+  padding: 15px 24px;
   cursor: pointer;
-  float: left; /* Float the buttons side by side */
+  float:left; /* Float the buttons side by side */
   width:20%;
-  height:60px;
+  height:20px;
+  top:10px;
+  position:relative;
+  font-size:10px;
+  vertical-align:middle;
+  display:inline-block;
 }
 
 .btn-group button:not(:last-child) {
