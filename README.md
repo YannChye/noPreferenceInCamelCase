@@ -22,6 +22,8 @@
   * [Built With](#built-with)
 * [Usage](#usage)
 * [Getting Started](#getting-started)
+  * [Heroku](#heroku)
+  * [Local](#local)
 * [Contributors](#contributors)
 * [Acknowledgements](#acknowledgements)
 
@@ -56,7 +58,10 @@ Click on the link to explore and interact with our [Dashboard](https://world-dem
 
 <!-- GETTING STARTED -->
 ## Getting Started
-**To get your own database and app up and running on heroku, follow these steps**
+If you wish to run a local version with the full dataset, skip to [Local](#local). If you wish to run a scaled down version on your own Heroku app, follow the following [Heroku](#heroku) steps.
+
+### Heroku
+**To get your own database and app up and running on heroku, follow these steps.**
 1. Fork our directory on github.
 2. Sign up for an [Heroku](https://www.heroku.com/) account.
 3. Sign up for [mapbox](https://www.mapbox.com/), and replace your api key with ours on the _/static/js/config.js_ file. Remember to restrict your mapbox api key to your app url, so you don't get hit with nasty charges!!!
@@ -71,6 +76,7 @@ Click on the link to explore and interact with our [Dashboard](https://world-dem
   ```
   * And now you are all set. Have fun with your new app!
 
+### Local
 **To get a local copy up and running follow these steps.**
 1. Clone our directory down to your local machine.
 ```sh
