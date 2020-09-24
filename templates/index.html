@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>World Demographics</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+        <!-- Left at default -->
+        <div class="container">
+            <!-- Within navbar to remove horizontal padding at breakpoints below specified -->
+            <!-- Create hamburger -->
+            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- tells bootstrap what to put in drop down menu  -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- puts menu items to right of navbar-brand  -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tech">Tech</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About us</a>
+                    </li>
+                </ul>
+            </div> 
+        </div>
+    </nav>
+
+    <div class="jumbotron vertical-center" style="padding-top:0px">
+        <div class="container text-center" id="landing">
+            <br>
+            <h2><a class="mainVar" href="/" style="font-display: top;">Total Population</a></h2>
+            <h4 class="year">2019</h4>
+        </div>
+    </div>
+    <div class=“btn-group”>
+        <button class="factorButton vertical-center" onclick="optionChanged(this)">Total Population</button>
+        <button class="factorButton" onclick="optionChanged(this)">Birth Rate</button>
+        <button class="factorButton" onclick="optionChanged(this)">Mortality Rate</button>
+        <button class="factorButton" onclick="optionChanged(this)">Life Expectancy</button>
+        <button class="factorButton" onclick="optionChanged(this)">Population Growth Rate</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- progress bar for years -->
+    <div id="progress" class="progress"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 .d-block" id="left">
+                <h4>Click on a country to find out more</h4>
+                <div id="map"></div>
+                <br>
+                <br>
+                <p class="footnote">Mortality rate = deaths per 1,000 population.
+                    <br>Birth rate = births per 1,000 population.
+                </p>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div id = "line">
+                </div>
+                <hr>
+                <div id = "bar">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="footer">
+        <div class="container text-center">
+            <p><a href="https://population.un.org/wpp/" target="_blank"> Data sourced from United Nations, Department of Economic and Social Affairs, Population Division (2019). World Population Prospects 2019, Online Edition. Rev. 1.</a></p>
+        </div>
+    </div>
+    <!-- ImageMap JavaScript -->
+    <script src="https://unpkg.com/image-map/dist/image-map.js"></script>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+    <!-- D3 JavaScript -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <!-- SweetAlert JavaScript -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Plotly JavaScript -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- our JavaScript -->
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
+</body>
+</html>

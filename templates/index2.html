@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Character encoding Unicode -->
+    <meta charset="UTF-8">
+
+    <!-- Set page width to follow screen-width of device and initial zoom when page first loaded -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Vis Project</title>
+    <html lang="en-us">
+
+    </html>
+
+    <!-- Bring in bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Left at default -->
+        <div class="container">
+            <!-- Within navbar to remove horizontal padding at breakpoints below specified -->
+            <a class="navbar-brand" href="index.html">70 Years of Population Growth</a>
+            <!-- Create hamburger -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!--tells bootstrap what to put in drop down menu -->
+                <ul class="navbar-nav ml-auto">
+                    <!--puts menu items to right of navbar-brand -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardropdown" data-toggle="dropdown">
+                            Plot
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="">Birth Rate</a>
+                            <a class="dropdown-item" href="">Death Rate</a>
+                            <a class="dropdown-item" href="">Age</a>
+                            <a class="dropdown-item" href="">Population</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">Home Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="data.html">Why We Did It</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pt-3 my-3">
+        <div class="row">
+            <div class="col-md-12">
+            <h1 class="header">Click to see our technology and how we made it work</h1>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <img src="../images/OurTech.png" class="img-fluid" usemap="#ourtech">
+                <map name="ourtech">
+                    <area shape="rect" coords="382,70,696,232" id="Flask" onclick="changeImage(this,'Flask')">
+                    <area shape="rect" coords="838,33,1007,85" id="JSON" onclick="changeImage(this,'JSON')">
+                    <area shape="rect" coords="956,169,1008,327" id="JSON2" onclick="changeImage(this,'JSON')">
+                    <area shape="rect" coords="813,354,1217,426" id="SQLAlchemy"
+                        onclick="changeImage(this,'SQLAlchemy')">
+                    <area shape="rect" coords="1092,70,1446,275" id="HTML" onclick="changeImage(this,'HTML')">
+                    <area shape="rect" coords="783,544,1038,807" id="PostgreSQL" onclick="changeImage(this,'PostgreSQL')">
+                    <area shape="rect" coords="632,549,725,656" id="CSV1" onclick="changeImage(this,'CSV')">
+                    <area shape="rect" coords="58,562,153,671" id="CSV2" onclick="changeImage(this,'CSV')">
+                    <area shape="rect" coords="66,686,162,777" id="Excel" onclick="changeImage(this,'Excel')">
+                    <area shape="rect" coords="298,589,489,694" id="Pandas" onclick="changeImage(this,'Pandas')">
+                    <area shape="rect" coords="62,397,197,541" id="UNats" onclick="changeImage(this,'UNats')">
+                    <area shape="poly" coords="796,104,1029,105,1035,90,1064,121,1035,154,1033,138,796,138" id="Arrow1"
+                        onclick="changeImage(this, 'Arrow1')">
+                    <area shape="poly" coords="720,184,747,155,750,169,831,169,831,294,800,294,801,199,749,201,746,211" id="Arrow2"
+                        onclick="changeImage(this, 'Arrow2')">
+                    <area shape="poly" coords="964,535,998,505,981,501,980,445,949,445,945,504,932,505" id="Arrow3"
+                        onclick="changeImage(this, 'Arrow3')">
+                    <area shape="poly" coords="848,441,882,472,869,470,865,530,833,530,833,474,821,471" id="Arrow4"
+                        onclick="changeImage(this, 'Arrow4')">
+                    <area shape="poly" coords="671,524,640,523,637,415,729,415,731,397,762,429,732,461,730,445,670,446" id="Arrow5"
+                        onclick="changeImage(this, 'Arrow5')">
+                        <area shape="poly" coords="508,593,567,595,571,579,604,608,570,642,568,629,510,626" id="Arrow6"
+                        onclick="changeImage(this, 'Arrow6')">
+                        <area shape="poly" coords="197,595,255,596,255,575,287,610,256,643,252,625,192,625" id="Arrow7"
+                        onclick="changeImage(this, 'Arrow7')">
+                        <area shape="poly" coords="783,198,816,164,818,182,907,180,907,310,926,308,893,337,857,311,876,308,872,216,816,215,813,229" id="Arrow8"
+                        onclick="changeImage(this, 'Arrow8')">
+                </map>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/image-map/dist/image-map.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script type="text/javascript" src="../static/js/tech.js"></script>
+</body>
+
+</html>
