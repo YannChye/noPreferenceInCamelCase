@@ -60,8 +60,8 @@ _Follow this link to explore and interact with our [Dashboard](https:)_
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-* Python 3.6 (or later)
-To check your version
+* Install Conda or equivalent framework and ensure it includes a Python version of 3.6 (or later).  It should also 
+To check your Python version
 ```sh
 python --version
 ```
@@ -104,9 +104,9 @@ Your Python environment should also contain:
 ```sh
 git clone https://github.com/YannChye/noPreferenceInCamelCase.git
 ```
-3. Install xxx packages
+3. Install ensure all packages in the requirements.text file are installed 
 ```sh
-xxx install
+pip install requirements.text
 ```
 4. Enter your API in `config.js`
 ```JS
@@ -118,26 +118,13 @@ username='postgres'
 passord='password123'
 ```
 
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b branchname`)
-3. Commit your Changes (`git commit -m 'Add some AmazingChanges'`)
-4. Push to the Branch (`git push origin `)
-5. Open a Pull Request
-
-
-<!-- THE TEAM -->
-## The Team
+<!-- CONTRIBUTORS -->
+## Contributors
 
 * Yann Chye
 * Susov Dhakal
 * Michelle Hocking
-* Oriola Orekoya
-* Ian Lim
+
 ***
 
 
