@@ -7,7 +7,7 @@
     <img src="static/images/project_logo.jpg" alt="Logo" width="200" height="200">
   </a>
 
-  <h3 align="center">World population trends 1950-2020</h3>
+  <h3 align="center">World population trends 1950-2019</h3>
   <p align="center">
     A Data Visualisation
     <br />
@@ -24,8 +24,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-* [Contributing](#contributing)
-* [Contact](#contact)
+* [Contributors](#contributors)
 * [Acknowledgements](#acknowledgements)
 
 
@@ -65,7 +64,7 @@ To get a local copy up and running follow these steps.
 
 To check your Python version
 ```sh
-python --version
+$ python --version
 ```
 The latest version can be found at [https://www.python.org/downloads/](https://www.python.org/downloads/).  
 
@@ -77,12 +76,12 @@ $ pip install -r requirements.txt
 ```
 
 
-* flask_sqlalchemy
+* Install flask_sqlalchemy into your environment
 ```sh
-pip install flask-sqlalchemy
+$ pip install flask-sqlalchemy
 ```
 
-* PostgreSQL
+* Download a version of PostgreSQL onto your machine
 ```sh
 https://www.postgresql.org/download/
 ```
@@ -97,7 +96,7 @@ git clone https://github.com/YannChye/noPreferenceInCamelCase.git
 ```
 3. Install all packages in the requirements.text
 ```sh
-pip install requirements.text
+$ pip install -r requirements.txt
 ```
 4. Enter your API in `config.js`
 ```JS
@@ -120,11 +119,16 @@ passord='password123'
 ***
 
 
+
+
+
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
 **Design adapted from:**
+
 _The Health in Retirement Index_. Retrieved from: [https://hi.knoema.com/wcoqzud/the-health-in-retirement-index](https://hi.knoema.com/wcoqzud/the-health-in-retirement-index)
+
 
 **Data sourced from :**
 
@@ -136,6 +140,7 @@ _United Nations Department of Economic and Social Affairs Population Dynamics _W
 Annual Demographic Indicators (XLSX, 33.41 MB)_.  Retrieved from: [https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/](https://population.un.org/wpp/Download/SpecialAggregates/EconomicTrading/)
 
 _GeoJSON polygons for country boundaries_. Retrieved from: [https://github.com/datasets/geo-countries](https://github.com/datasets/geo-countries)
+
 
 **Additional reference materials:**
 
