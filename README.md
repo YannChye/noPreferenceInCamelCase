@@ -4,7 +4,7 @@
 <br />
 <p align="center">
   <a href=>
-    <img src="03_dashboard/images/project_logo.jpg" alt="Logo" width="200" height="200">
+    <img src="static/images/project_logo.jpg" alt="Logo" width="200" height="200">
   </a>
 
   <h3 align="center">World population trends 1950-2020</h3>
@@ -13,7 +13,6 @@
     <br />
 </p>
 </p>
-
 
 
 <!-- TABLE OF CONTENTS -->
@@ -32,7 +31,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-According to the ABS, the Australian population is set to double by 2075, which got us to thinking ...  What have been the macro trends for things like life expectancy, birth rates, population size and growth and how do they compare with the rest of the world?  So, like all good data nerds we went looking. 
+According to the ABS, the Australian population is set to double by 2066, which got us to thinking ...  What have been the macro trends for things like life expectancy, birth rates, population size and growth and how do they compare with the rest of the world?  So, like all good data nerds we went looking. 
 
 We found the 2019 United Nations (UN) World Population Prospects as a rich source for key demographic indicators across the world, we crunched it together and here's our data viz "One Pager".  Hope you find it as interesting to use as we found making it.
 
@@ -51,21 +50,32 @@ We found the 2019 United Nations (UN) World Population Prospects as a rich sourc
   * [Image-map](https://www.npmjs.com/package/image-map)
   * [Plotly](https://plotly.com/javascript/)
 
+
 <!-- USAGE EXAMPLES -->
 ## Usage
-_Follow this link to explore and interact with our [Dashboard](https:)_
+Click on link to explore and interact with our [Dashboard](https:)
+
 
 <!-- GETTING STARTED -->
 ## Getting Started
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these steps.
 
 ### Prerequisites
-* Install Conda or equivalent framework and ensure it includes a Python version of 3.6 (or later).  It should also 
+* Install Conda or an equivalent framework and ensure it includes a Python version of 3.6 (or later).
+
 To check your Python version
 ```sh
 python --version
 ```
-The latest version can be found at [https://www.python.org/downloads/](https://www.python.org/downloads/)
+The latest version can be found at [https://www.python.org/downloads/](https://www.python.org/downloads/).  
+
+Refer to the configuration file [requirements.txt](requirements.txt) for a complete list of all items required in your Conda environment to run the project.
+
+Alternatively use the requirements.txt file to install the specified packages with the specified version
+```sh
+$ pip install -r requirements.txt
+```
+
 
 * flask_sqlalchemy
 ```sh
@@ -78,33 +88,14 @@ https://www.postgresql.org/download/
 ```
 
 
-
-* geogson
-* gmaps
-* psycopg2
-* sqlalchemy-utils
-
-
-Your Python environment should also contain:
-* flask
-* html5lib
-* jinja2
-* jupyter
-* json5
-* pandas
-
-
-
-
-
 ### Installation
 
-1. Get a free API Key at
+1. Get a free API Key at _mapbox_ [https://www.mapbox.com/](https://www.mapbox.com/)
 2. Clone the repo
 ```sh
 git clone https://github.com/YannChye/noPreferenceInCamelCase.git
 ```
-3. Install ensure all packages in the requirements.text file are installed 
+3. Install all packages in the requirements.text
 ```sh
 pip install requirements.text
 ```
@@ -118,6 +109,7 @@ username='postgres'
 passord='password123'
 ```
 
+
 <!-- CONTRIBUTORS -->
 ## Contributors
 
@@ -128,15 +120,13 @@ passord='password123'
 ***
 
 
-
-
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-Design adapted from:
+**Design adapted from:**
 _The Health in Retirement Index_. Retrieved from: [https://hi.knoema.com/wcoqzud/the-health-in-retirement-index](https://hi.knoema.com/wcoqzud/the-health-in-retirement-index)
 
-Data sourced from :
+**Data sourced from :**
 
 _United Nations Department of Economic and Social Affairs Population Dynamics _World Population Prospects 2019_ : Total Population - Both Sexes (XLSX, 2.4 MB)_.  Retrieved from: [https://population.un.org/wpp/Download/Standard/Population/](https://population.un.org/wpp/Download/Standard/Population/)
 
@@ -147,7 +137,7 @@ Annual Demographic Indicators (XLSX, 33.41 MB)_.  Retrieved from: [https://popul
 
 _GeoJSON polygons for country boundaries_. Retrieved from: [https://github.com/datasets/geo-countries](https://github.com/datasets/geo-countries)
 
-Additional reference materials:
+**Additional reference materials:**
 
 _datapine dashboard knowledge base_ Retrieved from: [https://www.datapine.com/documentation/](https://www.datapine.com/documentation/)
 
