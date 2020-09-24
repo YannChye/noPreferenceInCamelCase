@@ -13,6 +13,9 @@ body {
   height:50px;
   background:none;
 }
+p.progressTop {
+  line-height:50px;
+}
 #map {
   width:100%;
   height:100%;
@@ -223,5 +226,3 @@ h1,h2 {
     vertical-align:middle;
     display:inline-block;
   }
-
-}
