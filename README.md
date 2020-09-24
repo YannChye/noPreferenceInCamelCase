@@ -67,14 +67,14 @@ If you wish to run a local version with the full dataset, skip to [Local](#local
 3. Sign up for [mapbox](https://www.mapbox.com/), and replace your api key with ours on the _/static/js/config.js_ file. Remember to restrict your mapbox api key to your app url, so you don't get hit with nasty charges!!!
 4. Connect your github page to a new Heroku app, and click **'Deploy'**.
 5. Add your database to your Heroku app. To do so - 
-  * add-on Heroku Postgres to your app
-  * grab your Postgres database URI from Heroku Postgres > Settings > View Credentials
-  * in the **initdb.py** file, replace 'heroku_postgres_uri' on line 15 with the uri you just obtained
-  * run the following. Don't worry if it is slow, it will take a while for the database to populate.
-  ```sh
-  $ python initdb.py
-  ```
-  * And now you are all set. Have fun with your new app!
+    * add-on Heroku Postgres to your app
+    * grab your Postgres database URI from Heroku Postgres > Settings > View Credentials
+    * in the **initdb.py** file, replace 'heroku_postgres_uri' on line 15 with the uri you just obtained
+    * run the following. Don't worry if it is slow, it will take a while for the database to populate.
+      ```sh
+      $ python initdb.py
+      ```
+6. And now you are all set. Have fun with your new app!
 
 ### Local
 **To get a local copy up and running follow these steps.**
