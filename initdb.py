@@ -11,20 +11,20 @@ geogpath=os.path.join('01_transform_data','geog_region.csv')
 sdgregionpath=os.path.join('01_transform_data','sdg_region.csv')
 demopath=os.path.join('01_transform_data','demographic.csv')
 
-## if running on Heroku, run the following line to create engine
+## IF RUNNING ON HEROKU, run the following line to create engine
 ## replace 'heroku_postgres_uri' with heroku's postgres uri
 ########################################################
-engine = create_engine('postgres://fdzpdoalcyhfay:c1b7fa0972601f177483cb928506b6ea4da919d719879882a264196bc3094f14@ec2-35-169-92-231.compute-1.amazonaws.com:5432/dfjp6hb6mai80h')
+engine = create_engine('heroku_postgres_uri')
 
 ########################################################
 
-## if running locally, run the following lines
+## IF RUNNING LOCALLY, run the following lines
 ## ensure that you have your local postgres username and possword stored in ./00_config/password.py
 ########################################################
 # sys.path.append('./00_config')
 # from password import username, password
 # engine = create_engine('postgresql://'+username+':'+password+'@localhost/world_population')
-#if not database_exists(engine.url):
+# if not database_exists(engine.url):
 #    create_database(engine.url)
 
 ########################################################
