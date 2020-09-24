@@ -2,13 +2,15 @@
 const coord="https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
 
 // get all years
-years=[];
-for (i=0;i<70;i++) {
-  years.push(i+1950);
+function getYears() {
+  d3.json("/api/years").then(data=> {
+    years=data.years;
+    makeResponsive(years)
+  })
 }
 
 // create year progress bar
-function makeResponsive() {
+function makeResponsive(years) {
   var svgArea = d3.select(".progress").select("svg");
   if (!svgArea.empty()) {
     svgArea.remove();
@@ -105,7 +107,14 @@ function makeResponsive() {
       if ([1950,1960,1970,1980,1990,2000,2010,2019].includes(d)) {
         return d
       }
-    })
+  })
+  if (year=2019) { //colour year 2019 on default page
+    for (var a of document.querySelectorAll("rect")) {
+      if (a.textContent.includes(2019)) {
+        d3.select(a).attr("fill","#1d79b4");
+      }
+    }
+  }
 }
 
 //toolTip for year popup
@@ -272,8 +281,12 @@ var continentNames=["Africa","Asia","Europe","Latin America And The Caribbean","
 
 function lineChart(url) {
   var aggregPop=[[],[],[],[],[],[]];
+  var years=[]
   d3.json(url).then(function(data) {
     data.forEach(function(d) {
+      if (!years.includes(d.year)) {
+        years.push(d.year)
+      }
       for (i=0;i<continentNames.length;i++) {
         if (d.geography==continentNames[i]) {
           aggregPop[i].push(d.variable);
@@ -521,7 +534,7 @@ function optionChanged(variable) {
   myMap.closePopup(); //close map popup
   d3.select(".mainVar").text(variable.innerHTML)
   if (variable.innerHTML=="Total Population") {
-    var url="/api/population/";
+    var url="/api/demographic/population/";
     var geographyUrl="/api/geography/population";
   }
   else if (variable.innerHTML=="Mortality Rate") {
@@ -548,10 +561,9 @@ function optionChanged(variable) {
 
 // initial/default view
 var countryIso="AUS";
-var varOfInterest=["Total Population","/api/population/"];
+var varOfInterest=["Total Population","/api/demographic/population/"];
 var year=2019;
+getYears();
 getData(varOfInterest[1],year);
 lineChart("/api/geography/population")
 getBar(countryIso);
-makeResponsive();
-d3.select("#progress > svg > g:nth-child(1) > rect:nth-child(70)").attr("fill","#1d79b4")
