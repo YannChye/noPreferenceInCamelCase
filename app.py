@@ -44,7 +44,11 @@ def home():
 
 @app.route("/tech")
 def tech():
-    return render_template("index2.html")
+    return render_template("tech.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 # create routes for various APIs
 # various demographic data
@@ -150,4 +154,4 @@ def years():
 
 # run app
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

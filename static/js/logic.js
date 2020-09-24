@@ -37,16 +37,16 @@ function makeResponsive(years) {
       return (svgWidth-40)/years.length-2
     })
     .attr("height",10)
-    .attr("fill","#b5e7bd")
+    .attr("fill","#55b58f")
     .text((d,i) => {return years[i]})
   // when a year is selected
     .on("click",function(d) {
     year=d.path[0].innerHTML;
     d3.select(".year").text(year)
     d3.selectAll("rect")
-      .attr("fill","#b5e7bd")
+      .attr("fill","#55b58f")
     d3.select(this)
-      .attr("fill","#1d79b4")
+      .attr("fill","#15505b")
     Plotly.relayout("line",{shapes:[{ //update line chart year indicator
       type:"line",
       x0:year,
@@ -55,27 +55,27 @@ function makeResponsive(years) {
       yref:"paper",
       y1:1,
       line:{
-        color:"grey",
+        color:"#15505b",
         width:1.5,
         dash:"dot"
       }
     }],
     annotations:[{
         x:year,
-        y:1.05,
+        y:1.08,
         xref:'x',
         yref:'paper',
         text:"<b>"+year+"<b>",
         showarrow:false,
         font:{
           size:12,
-          color:"#0a7c45"
+          color:"#15505b"
         }
       }]
     })
     myMap.closePopup(); //close map popup
     getData(varOfInterest[1],year) // update dashboard with selected year
-    getBar(countryIso)
+    getBar(countryIso) // update bar chart
   })
   .on("mouseover",function(d) {
     toolTip.html(`<p>${this.innerHTML}</p>`)
@@ -99,7 +99,7 @@ function makeResponsive(years) {
     .enter()
     .append("text")
     .attr("x",(d,index) => {
-      return (svgWidth-40)/70*index+10;
+      return (svgWidth-40)/years.length*index+10;
     })
     .attr("y",25)
     .attr("font-size","10px")
@@ -111,7 +111,7 @@ function makeResponsive(years) {
   if (year=2019) { //colour year 2019 on default page
     for (var a of document.querySelectorAll("rect")) {
       if (a.textContent.includes(2019)) {
-        d3.select(a).attr("fill","#1d79b4");
+        d3.select(a).attr("fill","#15505b");
       }
     }
   }
@@ -161,7 +161,7 @@ function getMinMax() {
   }
 
 // function for choropleth colours
-var colors=["#e5f7e0","#d6f3d7","#c8eec9","#b5e7bd","#9fdbbf","#89d2ca","#6bbcce","#57add2","#3597c7","#1d79b4"]
+var colors=["#c4e7a4","#bbe1a2","#9dd892","#78ce88","#55b58f","#4ea292","#358681","#246972","#15505b","#0f3b43"]
 
 function getInterval(minVal,maxVal) {
   let interval=(maxVal-minVal)/10
@@ -373,10 +373,16 @@ function lineChart(url) {
         pad:0
       },
       hovermode:"closest",
-      title:varOfInterest[0]+" by Continent<br>over the Past 70 Years",
+      title:{
+        "text":varOfInterest[0]+" by Continent<br>over the Past 70 Years",
+        "xanchor":"right",
+        "x":1,
+        "y":0.95,
+        "yanchor":"top"
+    },
       font:{
         family:'Times New Roman, Times, serif',
-        size:11
+        size:10
       },
       xaxis:{title:{
         text:"Year",
@@ -392,7 +398,7 @@ function lineChart(url) {
         yref:"paper",
         y1:1,
         line:{
-          color:"#0a7c45",
+          color:"#15505b",
           width:1.5,
           dash:"dot"
         }
@@ -400,14 +406,14 @@ function lineChart(url) {
       annotations:[
         {
           x:year,
-          y:1.05,
+          y:1.08,
           xref:'x',
           yref:'paper',
           text:"<b>"+year+"<b>",
           showarrow:false,
           font:{
             size:12,
-            color:"#0a7c45"
+            color:"#15505b"
           }
         }
       ]
@@ -424,7 +430,7 @@ function lineChartforContinent(continent) {
     }
   }
   Plotly.restyle("line",{"line.color":["rgba(232,232,232,0.5)"]})
-  Plotly.restyle("line",{"line.color":["#1d79b4"]},num)
+  Plotly.restyle("line",{"line.color":["#358681"]},num)
 }
 
 // bar chart
@@ -439,24 +445,30 @@ function getBar(countryCode) {
           if (data[i].iso3_code == countryCode) {
               var country=data[i].country
               let tableRow = i;
+              var ind;
               if (i == 0) {
-                 tableRow = (i + 2);
-                 barColours[2] = "#89d2ca";
-                 barColours[4] = "#1d79b4";
+                tableRow = (i + 2);
+                barColours[2] = "#89d2ca";
+                barColours[4] = "#1d79b4";
+                ind=3;
               } else if (i == 1) {
                   tableRow = (i + 1);
                   barColours[2] = "#89d2ca";
                   barColours[3] = "#1d79b4";
+                  ind=3;
               } else if (i == data.length - 2) {
                   tableRow = (i - 1);
                   barColours[2] = "#89d2ca";
                   barColours[1] = "#1d79b4";
+                  ind=data.length-2;
               } else if (i == data.length - 1) {
                   tableRow = (i - 2);
                   barColours[2] = "#89d2ca";
                   barColours[0] = "#1d79b4";
+                  ind=data.length-2;
               } else {
                   tableRow = i
+                  ind=i;
               }
               barCountry.push(data[tableRow + 2].country+" ");
               barCountry.push(data[tableRow + 1].country+" ");
@@ -517,14 +529,106 @@ function getBar(countryCode) {
           pad:0
         },
         hovermode:'closest',
-        title:"Relative "+varOfInterest[0]+" of<br>"+country+" in the World",
+        title:{
+          "text":"Relative "+varOfInterest[0]+" of<br>"+country+" in the World",
+          "xanchor":"right",
+          "x":0.95,
+          "yanchor":"top"
+      },
         font:{
           family:'Times New Roman, Times, serif',
           size:10
         },
         xaxis:{title:{text:varOfInterest[0]+
           (varOfInterest[0]=="Life Expectancy"?" (years)":"")+
-          (varOfInterest[0]=="Population Growth Rate"?" (%)":""),standoff:10}}}
+          (varOfInterest[0]=="Population Growth Rate"?" (%)":""),standoff:10}},
+        annotations: [
+            {
+              x: 0,
+              y: 5.5,
+              xref: 'paper',
+              yref: 'y',
+              font:{
+                size:12,
+                color:"white"
+              },
+              text: "RANK",
+              borderpad: 4,
+              bgcolor: "darkgrey",
+              showarrow: false
+          },
+          {
+              x: 0,
+              y: 0,
+              xref: 'paper',
+              yref: 'y',
+              text: `<b>${ind+2}</b>`,
+              font:{
+                size:11,
+                color:"black"
+              },
+              borderpad: 3,
+              bgcolor: "darkgrey",
+              showarrow: false
+          },
+          {
+              x: 0,
+              y: 1,
+              xref: 'paper',
+              yref: 'y',
+              text: `<b>${ind+1}</b>`,
+              font:{
+                size:12,
+                color:"black"
+              },
+              borderpad: 3,
+              bgcolor: "darkgrey",
+              showarrow: false,
+          },
+          {
+            x: 0,
+            y: 2,
+            xref: 'paper',
+            yref: 'y',
+            text: `<b>${ind}</b>`,
+            font:{
+              size:12,
+              color:"black"
+            },
+            borderpad: 3,
+            bgcolor: "darkgrey",
+            showarrow: false
+          },
+          {
+            x: 0,
+            y: 3,
+            xref: 'paper',
+            yref: 'y',
+            text: `<b>${ind-1}</b>`,
+            font:{
+              size:12,
+              color:"black"
+            },
+            borderpad: 3,
+            bgcolor: "darkgrey",
+            showarrow: false,
+          },
+          {
+            x: 0,
+            y: 4,
+            xref: 'paper',
+            yref: 'y',
+            text: `<b>${ind-2}</b>`,
+            font:{
+              size:12,
+              color:"black"
+            },
+            borderpad: 3,
+            bgcolor: "darkgrey",
+            showarrow: false
+      }
+          ]
+        }
       Plotly.newPlot("bar",traceBar,layoutBar);
   })
 }
