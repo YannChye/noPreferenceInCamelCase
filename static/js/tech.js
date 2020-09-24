@@ -20,7 +20,7 @@ function changeImage(elmnt, value) {
     } else if (a === "Excel") {
         swal("Excel is a spreadsheeting tool that features calculation, graphing tools, pivot tables, and a macro programming language called Visual Basic for Applications");
     } else if (a === "UNats") {
-        swal("The United Nations is not only our data source but also an international organization of countries set up in 1945, in succession to the League of Nations, to promote international peace, security, and cooperation");
+        swal("The United Nations provided our datasets.  They are an international organization of countries set up in 1945 to promote international peace, security, and cooperation");
     } else if (a === "Arrow1") {
         swal("We used Flask as our server to create multiple variable routes for the results of our database queries.  Data from these routes is used to build the data visualisations in the main dashboard");
     } else if (a === "Arrow2") {
@@ -32,7 +32,7 @@ function changeImage(elmnt, value) {
     } else if (a === "Arrow5") {
         swal("We used SQLAlchemy to access the CSV files needed to set up our PostgreSQL database");
     } else if (a === "Arrow6") {
-        swal("We generated 5 CSV files, one for each table in our PostgreSQL database");
+        swal("We generated 4 CSV files, one for each table in our PostgreSQL database");
     } else if (a === "Arrow7") {
         swal("We used 3 data sets from the United Nations population prospects 2019 report.  Our population data set was a CSV file and our demographics and country/geography data were in Excel spreadsheets.  All were imported into Pandas");
     } else {
