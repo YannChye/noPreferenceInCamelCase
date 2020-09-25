@@ -5,4 +5,4 @@ function speech(variable) {
   } else {
     x[0].style.display = "none";
   }
-      }
+}

@@ -265,7 +265,6 @@ blockquote:after {
   border-width: 15px 15px 0;
   border-style: solid;
   border-color: lightgrey transparent;
-  display:none;
 }
 
 @media (max-width:768px) {
