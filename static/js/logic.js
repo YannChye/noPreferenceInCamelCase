@@ -534,7 +534,9 @@ function getBar(countryCode) {
         },
         xaxis:{title:{text:varOfInterest[0]+
           (varOfInterest[0]=="Life Expectancy"?" (years)":"")+
-          (varOfInterest[0]=="Population Growth Rate"?" (%)":""),standoff:10}},
+          (varOfInterest[0]=="Population Growth Rate"?" (%)":""),standoff:10},
+          range: [2, 5],
+        },
         annotations: [
             {
               x: 0,
@@ -662,5 +664,4 @@ var varOfInterest=["Total Population","/api/demographic/population/"];
 var year=2019;
 getYears();
 getData(varOfInterest[1],year);
-lineChart("/api/geography/population")
-getBar(countryIso);
+lineChart("/api/geography/population");
