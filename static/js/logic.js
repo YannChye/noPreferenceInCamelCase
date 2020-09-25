@@ -161,7 +161,7 @@ function getMinMax() {
   }
 
 // function for choropleth colours
-var colors=["#c4e7a4","#bbe1a2","#9dd892","#78ce88","#55b58f","#4ea292","#358681","#246972","#15505b","#0f3b43"]
+var colors=["#00695c","#00796b","#00897b","#009688","#26a69a","#4db6ac","#5dbdb4","#6cc3bb","#79c8c1","#85cdc7"]
 
 function getInterval(minVal,maxVal) {
   let interval=(maxVal-minVal)/10
