@@ -133,9 +133,8 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <!-- our JavaScript -->
-    <script type="text/javascript" src="../static/js/tech.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tech.js') }}"></script>
     <script src="{{ url_for('static', filename='js/config.js') }}"></script>
     <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
 </body>
-
 </html>
