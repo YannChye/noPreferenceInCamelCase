@@ -40,7 +40,7 @@
                         <a class="nav-link" href="/tech">Tech</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">About us</a>
+                        <a class="nav-link" href="/about">About Us</a>
                     </li>
                 </ul>
             </div>
@@ -49,7 +49,7 @@
     <div class="jumbotron vertical-center">
         <div class="container text-center" id="teammembers">
             <br>
-            <h2><a class="mainVar" href="/about">Our Team</a></h2>
+            <h2><a class="mainVar" href="/about">About Us</a></h2>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
         <div class="row borders">
             <div class="col-lg-6 col-xl-4 col-xs-12" id="left">
                 <br>
-                <h2>About Us</h2>
+                <h2>Our Team</h2>
                 <p>On the surface we’re a bit of an unusual match-up – an accountant, a budding researcher and a teaching associate in neuroscience. Still, there’s one thing that makes us work and that’s our love of numbers.  We all work with them and we really, really love them! That and did we mention we’re doing a Data Analytics bootcamp together?</p>
                 <br>
                 <h2>Why We Did It</h2>
@@ -74,39 +74,53 @@
                 <h2>Some things you should know about...</h2>
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <img alt="Yann" src="{{ url_for('static', filename='images/Yann.png') }}" class="img-fluid">
                         <p class="Yann"><h4>Yann</h4>
                             <br>
+                            <blockquote class="yann">
                             <ul type="disc" style="font-size:small;">
-                                <li>I am a budding researcher still trying to find my footing.</li>
-                                <li>I simultaneously have too many and not enough houseplants.</li>
-                                <li>Writing about myself is harder than creating this dashboard.</li>
+                                <li>I am a budding researcher still trying to find my footing</li>
+                                <hr>
+                                <li>I simultaneously have too many and not enough houseplants</li>
+                                <hr>
+                                <li>Writing about myself is harder than creating this dashboard</li>
                             </ul>
+                            </blockquote>
+                        <img alt="Yann" src="{{ url_for('static', filename='images/Yann.png') }}" class="img-fluid" onclick="speech(this)">
                         </p>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <img alt="Michelle" src="{{ url_for('static', filename='images/Michelle.png') }}" class="img-fluid">
                         <p class="Michelle"><h4>Michelle</h4>
                             <br>
+                            <blockquote class="michelle">
                             <ul type="disc" style="font-size:small;">
                                 <li>Coffee, chocolate, cheese and ice cream – all major food groups</li>
+                                <hr>
                                 <li>I’m a sucker for a rescue animal – 3 dogs, 17 sheep, 4 cows, a steer and counting</li>
+                                <hr>
                                 <li>I’m known for my love a good chat … well, any chat really. I could talk all day</li>
                             </ul>
+                            </blockquote>
+                        <img alt="Michelle" src="{{ url_for('static', filename='images/Michelle.png') }}" class="img-fluid" onclick="speech(this)">
                         </p>
                     </div>    
                     
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <img alt="Susov" src="{{ url_for('static', filename='images/Susov.png') }}" class="img-fluid">
                         <p class="Susov"><h4>Susov</h4>
                             <br>
+                            <blockquote class="susov">
                             <ul type="disc" style="font-size:small;">
                                 <li>Researcher</li>
+                                <hr>
                                 <li>Love to learn new things</li>
+                                <hr>
                                 <li>Love to cook different cuisines. I make the best pizza!</li>
+                                <hr>
                                 <li>I will watch any live sports that is on TV. </li>
+                                <hr>
                                 <li>Road trips are the best thing ever!</li>
                             </ul>
+                            </blockquote>
+                        <img alt="Susov" src="{{ url_for('static', filename='images/Susov.png') }}" class="img-fluid" onclick="speech(this)">
                         </p>
                     </div>
                         
@@ -141,5 +155,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/about.js') }}"></script>
 </body>
 </html>

@@ -534,8 +534,7 @@ function getBar(countryCode) {
         },
         xaxis:{title:{text:varOfInterest[0]+
           (varOfInterest[0]=="Life Expectancy"?" (years)":"")+
-          (varOfInterest[0]=="Population Growth Rate"?" (%)":""),standoff:10},
-          range: [2, 5],
+          (varOfInterest[0]=="Population Growth Rate"?" (%)":""),standoff:10}
         },
         annotations: [
             {
