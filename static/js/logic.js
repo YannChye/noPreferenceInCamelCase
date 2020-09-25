@@ -62,7 +62,7 @@ function makeResponsive(years) {
     }],
     annotations:[{
         x:year,
-        y:1.08,
+        y:1.05,
         xref:'x',
         yref:'paper',
         text:"<b>"+year+"<b>",
@@ -80,7 +80,7 @@ function makeResponsive(years) {
   .on("mouseover",function(d) {
     toolTip.html(`<p>${this.innerHTML}</p>`)
       .style("left",`${d3.select(this).attr("x")-10}px`)
-      .style("top","200px")
+      .style("top","265px")
       .style("background","grey")
       .style("opacity",1)
     d3.select(this)
@@ -399,7 +399,7 @@ function lineChart(url) {
       annotations:[
         {
           x:year,
-          y:1.08,
+          y:1.05,
           xref:'x',
           yref:'paper',
           text:"<b>"+year+"<b>",
