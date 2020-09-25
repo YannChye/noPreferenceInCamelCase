@@ -28,11 +28,29 @@ p.progressTop {
   border-radius: 0;
   height:7.5vh;
 }
-.navitem {
+.nav-link {
   font-size: 20px;
-  font-weight: bold;
+  color: lightgrey !important;
+  padding-top:5px
 }
-
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+.navbar-collapse {
+  background:#508383;
+  border:none;
+}
+.navbar-nav li {
+  padding-left:10px;
+}
+.dropdown-menu {
+  
+  position:relative;
+  top:48px;
+}
 .jumbotron {
   background-color: #336666;
   height: 15vh;
@@ -50,12 +68,16 @@ p.progressTop {
 
 #teammembers {
   height: 10vh;
-  color: #FFFFFF;
+  color: lightgrey;
 }
-
+.team > div > div >img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
 div.row {
   margin: 0px;
-  float: left;
   padding: 0px;
   text-align: left;
   width: 100%;
@@ -63,9 +85,14 @@ div.row {
 }
 
 #left {
-  height: 60vh;
   display: block;
   border-right: 1px solid lightgrey;
+}
+
+#leftMap {
+  display: block;
+  border-right: 1px solid lightgrey;
+  height:60vh;
 }
 
 a,a:hover {
@@ -75,18 +102,17 @@ a,a:hover {
 
 #footer {
   position: relative;
-  padding: 10px 10px 0px 10px; 
-  bottom: 0%; 
+  display:block;
+  padding: 5px 10px 10px 10px; 
+  bottom: 0; 
   width: 100%; 
   /* Height of the footer*/  
-  height: 30px; 
-  float:bottom;
   background:#336666; 
   font-size: smaller;
   color: #FFFFFF;
   z-index:2;
+  height:auto;
 }
-
 .legend {
   padding: 6px 8px;
   font: 10px;
@@ -116,12 +142,17 @@ a,a:hover {
   float: left;
   font-size: 10px;
   font-weight:normal;
+  position:relative;
+  top:10px;
+  left:-4px
 }
 
 .legend .med {
   float:center;
   font-size: 10px;
   font-weight:normal;
+  position:relative;
+  top:10px
 }
 
 .legend .max {
@@ -129,7 +160,7 @@ a,a:hover {
   font-size: 10px;
   font-weight:normal;
   position:relative;
-  top:-10px
+  top:-5px
 }
 
 h1,h2 {
@@ -150,7 +181,6 @@ h1,h2 {
   height:auto;
   position:relative;
   bottom:10px;
-
   font-size:20px;
   vertical-align:middle;
   display:inline-block;
@@ -169,12 +199,13 @@ h1,h2 {
 
 .factorButton:hover {
   background:#315073;
-  color:white
+  color:white;
+  border:0px;
 }
 
-.factorButton:focus {
-  background:#1d79b4;
-  color:white
+.factorButton:active,.factorButton:focus {
+  outline:none;
+  border:none;
 }
 
 .tooltip {
@@ -196,24 +227,16 @@ h1,h2 {
 .footnote {
   font-size:15px;
 }
-@media (max-width:768px) {
-  #left {
-    border-right:none;
-  }
-  #line,#bar {
-    position:relative;
-    top:50px;
-  }
-  #footer {
-    font-size:10px;
-
-  }
-}
-
 .imagesize {
   height: 65%;
   text-align: center;
 
+}
+h4 {
+  text-align:center;
+}
+ul {
+  padding-left: 0;
 }
 
 @media (max-width:768px) {
@@ -232,3 +255,14 @@ h1,h2 {
     vertical-align:middle;
     display:inline-block;
   }
+  #left,#leftMap {
+    border-right:none;
+  }
+  #line,#bar {
+    position:relative;
+    top:50px;
+  }
+  #footer {
+    font-size:10px;
+  }
+}

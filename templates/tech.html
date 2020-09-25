@@ -19,7 +19,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
         <!-- Left at default -->
         <div class="container">
             <!-- Within navbar to remove horizontal padding at breakpoints below specified -->
@@ -47,10 +47,10 @@
             </div>
         </div>
     </nav>
-    <div class="jumbotron vertical-center" style="padding-top:0px">
+    <div class="jumbotron vertical-center">
         <div class="container text-center" id="landing">
             <br>
-            <h2><a class="mainVar" href="/" style="font-display: top;">Our Technology</a></h2>
+            <h2><a class="mainVar" href="/tech">Our Technology</a></h2>
 
         </div>
     </div>
@@ -58,7 +58,6 @@
         <div class="row">
             <div class="col-md-12">
                 <h4 class="header">Click to see our technology and how we made it work</h4>
-
             </div>
         </div>
 
@@ -67,7 +66,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <img src="../static/images/OurTech.png" class="img-fluid" usemap="#ourtech">
+            <img src="{{ url_for('static', filename='images/OurTech.png') }}" class="img-fluid" usemap="#ourtech">
             <map name="ourtech">
                 <area shape="poly" coords="341,587,432,600,498,599,511,590,516,631,638,629,638,604,651,605,653,629,687,630,695,729,400,734,349,703,329,654,321,625" id="Flask" onclick="changeImage(this,'Flask')">
                 <area shape="rect" coords="560,439,609,611" id="JSON" onclick="changeImage(this,'JSON')">
@@ -134,7 +133,5 @@
         crossorigin="anonymous"></script>
     <!-- our JavaScript -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/tech.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
 </body>
 </html>

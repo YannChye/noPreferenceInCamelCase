@@ -1,7 +1,6 @@
 ImageMap('img[usemap]')
 
 function changeImage(elmnt, value) {
-    console.log(value);
     a = value;
     if (a === "Flask") {
         swal("Flask is a minimalistic python framework for building web apps (a light weight server). It makes development faster by offering code for all sorts of processes like database interaction or file activity")
@@ -30,7 +29,7 @@ function changeImage(elmnt, value) {
     } else if (a === "Arrow4") {
         swal("We used SQLAlchemy to query the database using SQL select statements in our Python code");
     } else if (a === "Arrow5") {
-        swal("We used SQLAlchemy to access the CSV files needed to set up our PostgreSQL database");
+        swal("We used SQLAlchemy to access and set up our PostgreSQL database");
     } else if (a === "Arrow6") {
         swal("We generated 4 CSV files, one for each table in our PostgreSQL database");
     } else if (a === "Arrow7") {

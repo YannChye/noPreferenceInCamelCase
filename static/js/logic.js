@@ -37,16 +37,16 @@ function makeResponsive(years) {
       return (svgWidth-40)/years.length-2
     })
     .attr("height",10)
-    .attr("fill","#55b58f")
+    .attr("fill","#86cdc7")
     .text((d,i) => {return years[i]})
   // when a year is selected
     .on("click",function(d) {
     year=d.path[0].innerHTML;
     d3.select(".year").text(year)
     d3.selectAll("rect")
-      .attr("fill","#55b58f")
+      .attr("fill","#86cdc7")
     d3.select(this)
-      .attr("fill","#15505b")
+      .attr("fill","#004d40")
     Plotly.relayout("line",{shapes:[{ //update line chart year indicator
       type:"line",
       x0:year,
@@ -55,7 +55,7 @@ function makeResponsive(years) {
       yref:"paper",
       y1:1,
       line:{
-        color:"#15505b",
+        color:"#004d40",
         width:1.5,
         dash:"dot"
       }
@@ -69,7 +69,7 @@ function makeResponsive(years) {
         showarrow:false,
         font:{
           size:12,
-          color:"#15505b"
+          color:"#004d40"
         }
       }]
     })
@@ -161,23 +161,16 @@ function getMinMax() {
   }
 
 // function for choropleth colours
-var colors=["#00695c","#00796b","#00897b","#009688","#26a69a","#4db6ac","#5dbdb4","#6cc3bb","#79c8c1","#85cdc7"]
+var colors=["#86cdc7","#59bbb2","#2da99d","#009688","#008476","#007264","#006052","#004d40"]
 
 function getInterval(minVal,maxVal) {
-  let interval=(maxVal-minVal)/10
+  let interval=(maxVal-minVal)/8
   return [minVal,minVal+interval,minVal+interval*2,minVal+interval*3,
-    minVal+interval*4,minVal+interval*5,minVal+interval*6,minVal+interval*7,
-    minVal+interval*8,minVal+interval*9]
+    minVal+interval*4,minVal+interval*5,minVal+interval*6,minVal+interval*7]
 }
 
 function chooseColor(interval,feature) {
-  if (feature > interval[9]) { //note to self: have to change condition for different variables (population v death v life etc)
-    return colors[9];
-  }
-  else if (feature > interval[8]) {
-    return colors[8];
-  }
-  else if (feature > interval[7]) {
+  if (feature > interval[7]) { //note to self: have to change condition for different variables (population v death v life etc)
     return colors[7];
   }
   else if (feature > interval[6]) {
@@ -254,11 +247,11 @@ function buildMap(mapdata,minVal,maxVal) {
     var legend=L.control({position:"bottomleft"});
     legend.onAdd=function() {
       var div=L.DomUtil.create("div","info legend");
-      var labels=[];
+      var labels=["<li style=\"background-color: white\"></li>"];
       var legendInfo="<strong>"+varOfInterest[0]
         +(varOfInterest[0]=="Life Expectancy"?" (years)":"")
         +(varOfInterest[0]=="Population Growth Rate"?" (%)":"")
-        +"</strong><div class=\"labels\"><div class=\"min\">"+
+        +"</strong><div class=\"labels\"><div class=\"min\">"+"no data&nbsp;&nbsp;&nbsp;&nbsp;"+
         (varOfInterest[0]=="Population"?(minVal*1000).toLocaleString():minVal)
         +"</div><div class=\"med\">"+
         (varOfInterest[0]=="Population"?(((maxVal-minVal)/2+minVal)*1000).toLocaleString():((maxVal-minVal)/2+minVal))
@@ -398,7 +391,7 @@ function lineChart(url) {
         yref:"paper",
         y1:1,
         line:{
-          color:"#15505b",
+          color:"#004d40",
           width:1.5,
           dash:"dot"
         }
@@ -413,7 +406,7 @@ function lineChart(url) {
           showarrow:false,
           font:{
             size:12,
-            color:"#15505b"
+            color:"#004d40"
           }
         }
       ]
@@ -430,12 +423,12 @@ function lineChartforContinent(continent) {
     }
   }
   Plotly.restyle("line",{"line.color":["rgba(232,232,232,0.5)"]})
-  Plotly.restyle("line",{"line.color":["#358681"]},num)
+  Plotly.restyle("line",{"line.color":["#008476"]},num)
 }
 
 // bar chart
 function getBar(countryCode) {
-  var barColours = ["#89d2ca","#89d2ca","#1d79b4","#89d2ca","#89d2ca"]
+  var barColours = ["#2DA99D","#2DA99D","#006052","#2DA99D","#2DA99D"]
   var barCountry = []
   var barData = []
   fullUrl=varOfInterest[1]+year;
@@ -448,27 +441,27 @@ function getBar(countryCode) {
               var ind;
               if (i == 0) {
                 tableRow = (i + 2);
-                barColours[2] = "#89d2ca";
-                barColours[4] = "#1d79b4";
+                barColours[2] = "#2DA99D";
+                barColours[4] = "#006052";
                 ind=3;
               } else if (i == 1) {
                   tableRow = (i + 1);
-                  barColours[2] = "#89d2ca";
-                  barColours[3] = "#1d79b4";
+                  barColours[2] = "#2DA99D";
+                  barColours[3] = "#006052";
                   ind=3;
               } else if (i == data.length - 2) {
                   tableRow = (i - 1);
-                  barColours[2] = "#89d2ca";
-                  barColours[1] = "#1d79b4";
+                  barColours[2] = "#2DA99D";
+                  barColours[1] = "#006052";
                   ind=data.length-2;
               } else if (i == data.length - 1) {
                   tableRow = (i - 2);
-                  barColours[2] = "#89d2ca";
-                  barColours[0] = "#1d79b4";
+                  barColours[2] = "#2DA99D";
+                  barColours[0] = "#006052";
                   ind=data.length-2;
               } else {
                   tableRow = i
-                  ind=i;
+                  ind=i+1;
               }
               barCountry.push(data[tableRow + 2].country+" ");
               barCountry.push(data[tableRow + 1].country+" ");
