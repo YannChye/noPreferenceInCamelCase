@@ -288,9 +288,11 @@ blockquote:after {
   }
   #line,#bar {
     position:relative;
-    top:50px;
+    top:120px;
   }
   #footer {
     font-size:10px;
+    position:relative;
+    top:120px;
   }
 }
