@@ -80,7 +80,7 @@ function makeResponsive(years) {
   .on("mouseover",function(d) {
     toolTip.html(`<p>${this.innerHTML}</p>`)
       .style("left",`${d3.select(this).attr("x")-10}px`)
-      .style("top","265px")
+      .style("top","200px")
       .style("background","grey")
       .style("opacity",1)
     d3.select(this)
