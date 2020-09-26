@@ -56,6 +56,8 @@ We have provided an abbreviated dashboard of the world demographics on heroku. T
 
 Click on the link to explore and interact with our [Dashboard](https://world-demographics.herokuapp.com)
 
+![Dashboard](/static/images/dashboard.gif)
+
 <!-- GETTING STARTED -->
 ## Getting Started
 If you wish to run a local version with the full dataset, skip to [Local](#local). If you wish to run a scaled down version on your own Heroku app, follow the following [Heroku](#heroku) steps.
